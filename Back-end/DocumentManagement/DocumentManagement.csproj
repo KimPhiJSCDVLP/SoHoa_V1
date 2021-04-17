@@ -20,9 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="FilesUpload\0605HS2\" />
+    <Folder Include="FilesUpload\0605HS2_222-221\" />
+    <Folder Include="FilesUpload\0605HS2_222-22\" />
+    <Folder Include="FilesUpload\0605HS2_222\" />
+    <Folder Include="FilesUpload\0605HS\" />
     <Folder Include="FilesUpload\FileImport\" />
     <Folder Include="FilesUpload\ImportTemplate\" />
     <Folder Include="FilesUpload\FileImport\" />
+    <Folder Include="FilesUpload\SignaturesImage\90338971_245781233122359_5565007589491605504_n.png\" />
   </ItemGroup>
 
 </Project>
