@@ -11,6 +11,7 @@ import { Language } from '../../model/language.model';
 import { Format } from '../../model/format.model';
 import { ConfidenceLevel } from '../../model/confidence-level.model';
 import { HopSo } from '../../model/hop-so.model';
+import { DocumentSearch } from '../../model/document-search';
 
 @Injectable({
   providedIn: 'root'
@@ -91,5 +92,24 @@ export class QuanLyTaiLieuService {
   public getProfileList(){
     // viet api di
     return this.httpClient.get<HoSo[]>(ApiUrl.apiUrl + "Profile/GetAllProfile");
+  }
+
+  public getDocumentPaging(condi? : BaseCondition<DocumentSearch>){
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+    return this.httpClient.post<Document[]>(ApiUrl.apiUrl + 'Document/GetDocumentPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 }
