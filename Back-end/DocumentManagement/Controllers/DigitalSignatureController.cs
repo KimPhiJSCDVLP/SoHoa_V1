@@ -78,11 +78,12 @@ namespace DocumentManagement.Controllers
             {
                 IFormFile file = Request.Form.Files["file"]; // danh sách file
                 string overwrite = Request.Form["overwrite"].ToString();
-                string filePath = Path.Combine(Const.FILE_UPLOAD_DIGITAL_SIGNATURE, file.FileName);
+                string filePath = Path.Combine(Const.FILE_UPLOAD_DIGITAL_SIGNATURE);
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
                 }
+                filePath = Path.Combine(Const.FILE_UPLOAD_DIGITAL_SIGNATURE, file.FileName);
                 int overwriteValue = 0;
 
                 if (file.Length > 0)

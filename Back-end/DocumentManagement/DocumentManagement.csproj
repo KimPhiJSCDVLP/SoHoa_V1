@@ -28,7 +28,7 @@
     <Folder Include="FilesUpload\FileImport\" />
     <Folder Include="FilesUpload\ImportTemplate\" />
     <Folder Include="FilesUpload\FileImport\" />
-    <Folder Include="FilesUpload\SignaturesImage\90338971_245781233122359_5565007589491605504_n.png\" />
+    <Folder Include="FilesUpload\SignaturesImage\" />
   </ItemGroup>
 
 </Project>
