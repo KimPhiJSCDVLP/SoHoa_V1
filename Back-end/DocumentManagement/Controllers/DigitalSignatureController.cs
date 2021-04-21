@@ -27,7 +27,8 @@ namespace DocumentManagement.Controllers
             
             for (int i = 0; i < result.ItemList.Count; i++)
             {
-                result.ItemList[i].Base64String = FilesUtillities.ConvertImageToBase64String(result.ItemList[i].Path);
+                var path = Path.Combine(Const.FILE_UPLOAD_DIGITAL_SIGNATURE, result.ItemList[i].FileName);
+                result.ItemList[i].Base64String = FilesUtillities.ConvertImageToBase64String(path);
             }
             return Ok(result);
         }
