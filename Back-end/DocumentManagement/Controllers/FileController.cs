@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DocumentManagement.BUS;
+using DocumentManagement.Common;
 using DocumentManagement.FrameWork;
 using DocumentManagement.Services.Common;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +42,9 @@ namespace DocumentManagement.Controllers
             var computerFile = profileBUS.GetComputerFileById(fileId).Item;
             if (computerFile == null)
                 return Content("Filename not present");
-            var path = Path.Combine(computerFile.FolderPath, computerFile.FileName);
+            var strArray = computerFile.FolderPath.Split('\\');
+            var folderName = !string.IsNullOrEmpty(strArray[strArray.Length - 1]) ? strArray[strArray.Length - 1] : string.Empty;
+            var path = Path.Combine(Const.FILE_UPLOAD_DIR, folderName, computerFile.FileName);
             if (!_fileService.FileExist(path))
             {
                 return Content("File not exits");
