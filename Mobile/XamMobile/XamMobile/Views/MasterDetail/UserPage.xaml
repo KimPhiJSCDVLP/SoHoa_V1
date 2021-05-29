@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamMobile.Views.MasterDetail.UserPage"
+             NavigationPage.HasBackButton="True"
+             NavigationPage.HasNavigationBar="True"
+             Title="Tài khoản">
+    <ContentPage.Content>
+        <ScrollView Padding="0,5,5,5">
+            <StackLayout>
+                <Grid ColumnSpacing="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="130"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0">
+                        <Frame CornerRadius="5" Padding="15">
+                            <Image Aspect="AspectFill" Source="{Binding ImageSourceAvatar}" HeightRequest="100" WidthRequest="100">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding UpdatePictureCommand}"></TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                                <Image.Triggers>
+                                    <DataTrigger Binding="{Binding ImageSourceAvatar}" TargetType="Image" Value="null">
+                                        <Setter Property="Source" Value="image_default.png"></Setter>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1">
+                        <Grid VerticalOptions="CenterAndExpand" ColumnSpacing="1" RowSpacing="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="0" Grid.Column="0" Text="Tòa nhà:"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="0" Grid.Column="1" Text="{Binding UserInfoModel.TenToaNha}"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="1" Grid.Column="0" Text="Chủ hộ:"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="1" Grid.Column="1" Text="{Binding UserInfoModel.TenHoGiaDinh}"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="2" Grid.Column="0" Text="Phòng: "></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="2" Grid.Column="1" Text="{Binding UserInfoModel.TenPhong}"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="3" Grid.Column="0" Text="Diện tích: "></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="3" Grid.Column="1" Text="{Binding UserInfoModel.DienTich}"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="4" Grid.Column="0" Text="Email: "></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="4" Grid.Column="1" Text="{Binding UserInfoModel.Email}"></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource TitleLabel}" Grid.Row="5" Grid.Column="0" Text="SĐT: "></Label>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="NoWrap" Style="{StaticResource ContentLabel}" Grid.Row="5" Grid.Column="1" Text="{Binding UserInfoModel.SDT}"></Label>
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                        <StackLayout Margin="0,5,0,5">
+                            <BoxView HeightRequest=".75" BackgroundColor="{StaticResource LightGray}" HorizontalOptions="FillAndExpand" />
+                            <Grid Padding="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="Danh sách nhân khẩu" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}" TextColor="{StaticResource MainColor}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+                                <StackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <Button
+                                    HorizontalOptions="FillAndExpand"
+                                    BackgroundColor="Transparent"
+                                    Clicked="OnCreatButtonClicked"
+                                    CommandParameter="{Binding .}"
+                                    VerticalOptions="Start"
+                                    WidthRequest="20" HeightRequest="20"
+                                    ImageSource="add_red_icon.png" />
+                                </StackLayout>
+                            </Grid>
+                            <BoxView HeightRequest=".75" BackgroundColor="{StaticResource LightGray}" HorizontalOptions="FillAndExpand" />
+                        </StackLayout>
+                        <ListView HasUnevenRows="True" ItemSelected="ListView_ItemSelected" ItemsSource="{Binding NhanKhaus}" RowHeight="60" HeightRequest="{Binding NhanKhauHeight}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Frame HasShadow="True" Margin="5" CornerRadius="10" Padding="5">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="45" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackLayout Grid.Column="0">
+                                                    <Label Style="{StaticResource TitleLabel}" Text="{Binding HoTen}"></Label>
+                                                    <Label Style="{StaticResource ContentLabel}" Text="{Binding QuanHeVoiChuHo}"></Label>
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="1" Padding="5">
+                                                    <Button
+                                                    BackgroundColor="Transparent"
+                                                    Clicked="ShowPopup_Clicked"
+                                                    CommandParameter="{Binding .}"
+                                                    VerticalOptions="Start"
+                                                    ImageSource="dot_icon.png" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
