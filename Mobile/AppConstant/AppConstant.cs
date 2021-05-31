@@ -4,7 +4,7 @@ namespace AppConstant
 {
     public class AppConstant
     {
-        public const string Endpoint = "http://192.168.43.114:8800";
+        public const string Endpoint = "http://172.16.10.240:8686";
         //
         public const string APIThongBao = "/odata/ThongBaoChung";
         public const string APIUserInfo = "/common/common";
