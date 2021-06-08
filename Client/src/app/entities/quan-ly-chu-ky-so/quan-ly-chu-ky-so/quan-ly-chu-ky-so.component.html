@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header" style="background-color: white;">
                 <form [formGroup]="form" (onSubmit)="onSubmit()">
-                <h4><i class="fa fa-file"></i> &nbsp;Chữ Ký Số </h4>
+                <h4><i class="fa fa-file"></i> &nbsp;Con Dấu Văn Bản </h4>
                 <hr/>
                 <ngx-spinner name="dataTable">
                     <br>
@@ -34,7 +34,7 @@
                             <div class="col-md-6">
                                 <input type="file" ng2FileSelect [uploader]="uploader" formControlName="file" name="file" (change)="onFileSelected()" id="file" accept=".png"/>
                                 <div *ngIf="submitted && (f.file.status == 'INVALID' || error)">
-                                    <div class="error">Vui lòng chọn file chữ ký số muốn tải lên.</div>
+                                    <div class="error">Vui lòng chọn file con dấu văn bản muốn tải lên.</div>
                                 </div>
                             </div>
                         </div>
@@ -86,8 +86,8 @@
                               </td>
                             <td class="center"><img src="{{ item.base64String }}" alt="item.fileName" class="size"/></td>
                             <td width="137px" class="center">
-                                <button *ngIf="item.status == 0" class="btn btn-primary fa fa-check-square" (click)="openUpdateDialog(item.id, item.status)" title="Áp dụng chữ ký số"></button>
-                                <button *ngIf="item.status == 1" class="btn btn-primary fa fa-minus-square" (click)="openUpdateDialog(item.id, item.status)" title="Bỏ áp dụng chữ ký số"></button>
+                                <button *ngIf="item.status == 0" class="btn btn-primary fa fa-check-square" (click)="openUpdateDialog(item.id, item.status)" title="Áp dụng con dấu văn bản"></button>
+                                <button *ngIf="item.status == 1" class="btn btn-primary fa fa-minus-square" (click)="openUpdateDialog(item.id, item.status)" title="Bỏ áp dụng con dấu văn bản"></button>
                                 <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(item.id)"></button>
                             </td>
                         </tr>

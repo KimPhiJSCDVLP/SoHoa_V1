@@ -52,7 +52,7 @@ export const navItems: INavData[] = [
         attributes: { style: 'margin-left: 10px;' }
       },
       {
-        name: 'Quản lý chữ ký số',
+        name: 'Quản lý con dấu văn bản',
         url: '/QuanLyChuKySo/chuKySo',
         icon: 'fa fa-address-book-o',
         attributes: { style: 'margin-left: 10px;' }

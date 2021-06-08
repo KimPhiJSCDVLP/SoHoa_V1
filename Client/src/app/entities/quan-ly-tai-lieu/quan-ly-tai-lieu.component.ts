@@ -278,8 +278,8 @@ export class QuanLyTaiLieuComponent implements OnInit {
     this.userGroupService.getRoleName(this.userName)
     .subscribe((result) => {
         this.userRole = result.item.roleName;
-        if (this.userRole === 'user') {
-          this.roles = localStorage.getItem('roles');
+        if (this.userRole.toLowerCase() === 'user') {
+          this.roles = this.userRole.toLowerCase();
         }
         else {
           this.roles = 'admin';

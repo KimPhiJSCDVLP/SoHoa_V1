@@ -24,6 +24,7 @@ import { DigitalSignature } from '../../../model/digital-signature.model';
 import { Compiler } from '@angular/core';
 import { setDate } from 'ngx-bootstrap/chronos/utils/date-setters';
 import { ApiUrl } from '../../../common';
+import { UserGroupService } from '../../quan-ly-nhom-nguoi-dung/user-group.service';
 
 @Component({
   selector: 'app-van-ban-pdf',
@@ -80,7 +81,9 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   gearBoxId: number;
   profileId: number;
   fileId: number;
-  
+  public userRole: string;
+  public roles : string;
+  userName: string;
   constructor(
     private activeModal: NgbActiveModal,
     private taiLieuPopupService: QuanLyTaiLieuPopupService,
@@ -93,13 +96,14 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     private hoSoService: QuanLyHoSoService,
     private quanLyTaiLieuService: QuanLyTaiLieuService,
     private signatureService: QuanLyChuKySoService,
-    private _compiler : Compiler
+    private _compiler : Compiler,
+    private userGroupService: UserGroupService
   ) {
     this.document = new Document();
     this.hopso = new HopSo();
     this.organ = new CoQuan();
     this.phong = new Phong();
-    
+    this.userName = localStorage.getItem('user');
     this.options = {
       multiple: false,
       theme: 'classic',
@@ -109,6 +113,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   }
 
   ngOnInit() {
+    this.getRoleByUserName();
     this.checked = false;
     this.IdSecure = false;
     this.IdDisable = true;
@@ -648,6 +653,25 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     }
   }
   
+  getRoleByUserName() {
+    this.userGroupService.getRoleName(this.userName)
+    .subscribe((result) => {
+        if (result.item.roleName.toLowerCase() === 'user') {
+          this.roles = result.item.roleName.toLowerCase();
+        }
+        else {
+          this.roles = 'admin';
+        }
+    }, 
+    (error => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+      }, 5000);
+    }),
+    () => {
+    })
+  }
+
   onFileSelected(id?: any) {
     this.computerFileList.forEach((item) => {
       if(item.fileId == id){
@@ -679,7 +703,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             }
             else {
               this.loadingSignature = false;
-              this.toastr.info("Vui lòng áp dụng một chữ ký số trong mục quản lý chữ ký số và thử lại.", "Thông báo");
+              this.toastr.info("Vui lòng áp dụng một con dấu văn bản trong mục quản lý con dấu văn bản và thử lại.", "Thông báo");
               this.checked = false;
             }
           }

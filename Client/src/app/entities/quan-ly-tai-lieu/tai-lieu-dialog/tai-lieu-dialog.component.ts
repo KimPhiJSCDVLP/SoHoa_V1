@@ -6,6 +6,7 @@ import { QuanLyTaiLieuService } from '../quan-ly-tai-lieu.service';
 import { Select2OptionData } from 'ng-select2';
 import { ToastrService } from 'ngx-toastr';
 import { Options } from 'select2';
+import { UserGroupService } from '../../quan-ly-nhom-nguoi-dung/user-group.service';
 
 @Component({
   selector: 'app-tai-lieu-dialog',
@@ -13,7 +14,7 @@ import { Options } from 'select2';
   styleUrls: ['./tai-lieu-dialog.component.css']
 })
 export class TaiLieuDialogComponent implements OnInit {
-
+  roles : string;
   document: Document = new Document();
   value1 = 'Default';
   isEdit : boolean = false;
@@ -31,12 +32,15 @@ export class TaiLieuDialogComponent implements OnInit {
   
   docTypeId: number;
   issuedDate: Date;
+  userName: string;
   constructor(
    private activeModal: NgbActiveModal,
    private taiLieuPopupService: QuanLyTaiLieuPopupService,
    private taiLieuService : QuanLyTaiLieuService,
    private toastr: ToastrService,
+   private userGroupService: UserGroupService
   ) { 
+    this.userName = localStorage.getItem('user');
     this.options = {
       multiple: false,
       theme: 'classic',
@@ -46,7 +50,7 @@ export class TaiLieuDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    console.log('open');
 
     this.isEdit = false;
     this.taiLieuService.getDocumentTypeList()
@@ -142,6 +146,25 @@ export class TaiLieuDialogComponent implements OnInit {
   
   }
   
+  getRoleByUserName() {
+    this.userGroupService.getRoleName(this.userName)
+    .subscribe((result) => {
+        if (result.item.roleName.toLowerCase() === 'user') {
+          this.roles = result.item.roleName.toLowerCase();
+        }
+        else {
+          this.roles = 'admin';
+        }
+    }, 
+    (error => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+      }, 5000);
+    }),
+    () => {
+    })
+  }
+
   save() {
     if (this.isEdit) {
       this.taiLieuService.updateDocument(this.document)

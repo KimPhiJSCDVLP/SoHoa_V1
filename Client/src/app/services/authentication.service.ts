@@ -64,6 +64,7 @@ export class AuthenticationService implements OnInit, OnDestroy {
     localStorage.removeItem('access-token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('user');
+    localStorage.removeItem('role');
     this.behaviorUserSubject.next(null);
   }
 

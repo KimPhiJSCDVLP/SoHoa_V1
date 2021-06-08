@@ -151,31 +151,31 @@ export class QuanLyChuKySoComponent implements OnInit {
         if (result.isSuccess && result.errorCode == "0") {
           this.onClose();
           this.loading = false;
-          this.toast.success("Thêm mới chữ ký số thành công", "Thông báo");
+          this.toast.success("Thêm mới con dấu văn bản thành công", "Thông báo");
           this.clearQueueAndInput();
         }
         else {
           if (result.errorCode == "-2") {
-            if(confirm("Tồn tại chữ ký số trên hệ thống:\n" + result.returnValue + ".\nVui lòng chọn OK để tiến hành ghi đè, chọn Cancel để hủy bỏ.")) {
+            if(confirm("Tồn tại con dấu văn bản trên hệ thống:\n" + result.returnValue + ".\nVui lòng chọn OK để tiến hành ghi đè, chọn Cancel để hủy bỏ.")) {
               this.loading = true;
               formData.append('overwrite', "1");
               this.service.signatureCreate(formData)
                 .subscribe((result) => {
                   if (result.isSuccess) {
                     this.loading = false;
-                    this.toast.info("Ghi đè chữ ký số thành công", "Thông báo");
+                    this.toast.info("Ghi đè con dấu văn bản thành công", "Thông báo");
                     this.onClose();
                     this.clearQueueAndInput();
                   }
                   else {
                     this.loading = false;
-                    this.toast.error("Ghi đè chữ ký số thất bại", "Thông báo");
+                    this.toast.error("Ghi đè con dấu văn bản thất bại", "Thông báo");
                   //  this.onClose();
                     this.clearQueueAndInput();
                   }
                 }, (error) => {
                   this.loading = false;
-                  this.toast.error("Ghi đè chữ ký số thất bại", "Thông báo");
+                  this.toast.error("Ghi đè con dấu văn bản thất bại", "Thông báo");
                 },
                 () => {
 
@@ -184,14 +184,14 @@ export class QuanLyChuKySoComponent implements OnInit {
           }
           else {
             this.loading = false;
-            this.toast.error("Thêm mới chữ ký số thất bại", "Thông báo");
+            this.toast.error("Thêm mới con dấu văn bản thất bại", "Thông báo");
             this.clearQueueAndInput();
           }
           
         }
       }, (error) => {
         this.loading = false;
-        this.toast.error("Thêm mới chữ ký số thất bại", "Thông báo");
+        this.toast.error("Thêm mới con dấu văn bản thất bại", "Thông báo");
         this.clearQueueAndInput();
       },
       () => {
