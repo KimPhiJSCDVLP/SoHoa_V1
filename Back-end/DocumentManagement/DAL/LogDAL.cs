@@ -84,21 +84,19 @@ namespace DocumentManagement.DAL
             }
             return result;
         }
-        public ReturnResult<Log> GetPagingWithSearchResults(BaseCondition<Log> condition)
+        public async Task<ReturnResult<Log>> GetAllLog()
         {
+            List<Log> logList = new List<Log>();
             DbProvider dbProvider = new DbProvider();
             string outCode = String.Empty;
             string outMessage = String.Empty;
+            int totalRows = 0;
             try
             {
-                dbProvider.SetQuery("LOG_GET_PAGING", CommandType.StoredProcedure)
-                .SetParameter("FromRecord", SqlDbType.NVarChar, condition.FromRecord, ParameterDirection.Input)
-                .SetParameter("PageSize", SqlDbType.NVarChar, condition.PageSize, ParameterDirection.Input)
-                .SetParameter("InWhere", SqlDbType.NVarChar, condition.IN_WHERE, ParameterDirection.Input)
-                .SetParameter("InSort", SqlDbType.NVarChar, condition.IN_SORT, ParameterDirection.Input)
+                dbProvider.SetQuery("LOG_GET_ALL", CommandType.StoredProcedure)
                 .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
                 .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
-                .ExcuteNonQuery()
+                .GetList<Log>(out logList)
                 .Complete();
             }
             catch (Exception)
@@ -110,35 +108,6 @@ namespace DocumentManagement.DAL
                        .GetOutValue("ErrorMessage", out outMessage);
 
             return new ReturnResult<Log>()
-            {
-                ErrorCode = outCode,
-                ErrorMessage = outMessage,
-            };
-        }
-        public async Task<ReturnResult<LogDTO>> GetAllLog()
-        {
-            List<LogDTO> logList = new List<LogDTO>();
-            DbProvider dbProvider = new DbProvider();
-            string outCode = String.Empty;
-            string outMessage = String.Empty;
-            int totalRows = 0;
-            try
-            {
-                dbProvider.SetQuery("LOG_GET_ALL", CommandType.StoredProcedure)
-                .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
-                .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
-                .GetList<LogDTO>(out logList)
-                .Complete();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            dbProvider.GetOutValue("ErrorCode", out outCode)
-                       .GetOutValue("ErrorMessage", out outMessage);
-
-            return new ReturnResult<LogDTO>()
             {
                 ItemList = logList,
                 ErrorCode = outCode,
@@ -225,10 +194,13 @@ namespace DocumentManagement.DAL
                 result = new ReturnResult<Log>();
                 db = new DbProvider();
                 db.SetQuery("LOG_EDIT", CommandType.StoredProcedure)
-                    .SetParameter("VanBanId", SqlDbType.Int, Log.VanBanId, ParameterDirection.Input)
+                    .SetParameter("LogId", SqlDbType.Int, Log.LogId, ParameterDirection.Input)
                     .SetParameter("Action", SqlDbType.NVarChar, Log.Action, 64, ParameterDirection.Input)
-                    .SetParameter("UpdatedDate", SqlDbType.DateTime, Log.CreatedDate, ParameterDirection.Input)
-                    .SetParameter("UpdatedBy", SqlDbType.Int, Log.CreatedBy, ParameterDirection.Input)
+                    .SetParameter("VanBanId", SqlDbType.Int, Log.VanBanId, ParameterDirection.Input)
+                    .SetParameter("CreatedDate", SqlDbType.DateTime, Log.CreatedDate, ParameterDirection.Input)
+                    .SetParameter("UpdatedDate", SqlDbType.DateTime, Log.UpdatedDate, ParameterDirection.Input)
+                    .SetParameter("CreatedBy", SqlDbType.Int, Log.CreatedBy, ParameterDirection.Input)
+                    .SetParameter("UpdatedBy", SqlDbType.Int, Log.UpdatedBy, ParameterDirection.Input)
                     .SetParameter("IsDeleted", SqlDbType.Bit, Log.IsDeleted, ParameterDirection.Input)
                     .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
                     .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
@@ -263,10 +235,12 @@ namespace DocumentManagement.DAL
             try
             {
                 provider.SetQuery("LOG_CREATE", CommandType.StoredProcedure)
-                .SetParameter("VanBanId", SqlDbType.Int, Log.VanBanId, ParameterDirection.Input)
                 .SetParameter("Action", SqlDbType.NVarChar, Log.Action, 64, ParameterDirection.Input)
+                .SetParameter("VanBanId", SqlDbType.Int, Log.VanBanId, ParameterDirection.Input)
                 .SetParameter("CreatedDate", SqlDbType.DateTime, Log.CreatedDate, ParameterDirection.Input)
+                .SetParameter("UpdatedDate", SqlDbType.DateTime, Log.UpdatedDate, ParameterDirection.Input)
                 .SetParameter("CreatedBy", SqlDbType.Int, Log.CreatedBy, ParameterDirection.Input)
+                .SetParameter("UpdatedBy", SqlDbType.Int, Log.UpdatedBy, ParameterDirection.Input)
                 .SetParameter("IsDeleted", SqlDbType.Bit, Log.IsDeleted, ParameterDirection.Input)
                 .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
                 .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)

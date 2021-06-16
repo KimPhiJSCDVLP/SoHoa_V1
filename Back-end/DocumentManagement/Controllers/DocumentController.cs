@@ -6,6 +6,7 @@ using Common.Common;
 using DocumentManagement.BUS;
 using DocumentManagement.Common;
 using DocumentManagement.FrameWork;
+using DocumentManagement.Models.Entity;
 using DocumentManagement.Models.Entity.Document;
 using DocumentManagement.Models.Entity.Profile;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,8 @@ namespace DocumentManagement.Controllers
 {
     public class DocumentController : BaseApiController
     {
+        private static LogBUS logBUS = LogBUS.GetLogBUSInstance;
+        private static UserBUS userBUS = UserBUS.GetUserBUSInstance;
         [HttpGet]
         public IActionResult GetAllDocument()
         {
@@ -53,6 +56,11 @@ namespace DocumentManagement.Controllers
                 document.Signature = 1;
             }
             var result = documentBUS.CreateDocument(document);
+            if (result.IsSuccess)
+            {
+                var doc = documentBUS.GetDocumentBySoVanBan(document.CodeNumber);
+                CreateLog(doc.Item, document.CreatedBy);
+            }
             return Ok(result);
         }
 
@@ -70,9 +78,25 @@ namespace DocumentManagement.Controllers
                 document.Signature = 1;
             }
             var result = documentBUS.UpdateDocument(document);
+            if (result.IsSuccess)
+            {
+                CreateLog(document, document.UpdatedBy, true);
+            }
             return Ok(result);
         }
 
+        private void CreateLog(Document document, string userName, bool isUpdate = false)
+        {
+            var user = userBUS.GetUserByUserName(userName);
+            Log log = new Log();
+            log.Action = isUpdate ? "Cập nhật văn bản" : "Thêm mới văn bản";
+            log.CreatedDate = DateTime.Now;
+            log.UpdatedDate = DateTime.Now;
+            log.VanBanId = document.DocumentId;
+            log.UpdatedBy = user.Item.Id;
+            log.CreatedBy = user.Item.Id;
+            logBUS.InsertLog(log);
+        }
         [HttpPost]
         public IActionResult DeleteDocument(Document document)
         {

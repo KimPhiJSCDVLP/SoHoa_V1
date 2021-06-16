@@ -101,6 +101,8 @@ namespace DocumentManagement.DAL
 
         public ReturnResult<Document> CreateDocument(Document document)
         {
+            document.CreatedDate = DateTime.Now;
+            document.UpdatedDate = DateTime.Now;
             DbProvider dbProvider;
             string outCode = String.Empty;
             string outMessage = String.Empty;
@@ -108,36 +110,34 @@ namespace DocumentManagement.DAL
             try
             {
                 dbProvider = new DbProvider();
-                dbProvider.SetQuery("DOCUMENT_CREATE", CommandType.StoredProcedure);
-                dbProvider.SetParameter("DocumentCode", SqlDbType.NVarChar, document.DocumentCode, ParameterDirection.Input);
-                dbProvider.SetParameter("DocOrdinal", SqlDbType.Int, document.DocOrdinal, ParameterDirection.Input);
-                dbProvider.SetParameter("FileId", SqlDbType.Int, document.FileId, ParameterDirection.Input);
-                dbProvider.SetParameter("DocTypeId", SqlDbType.Int, document.DocTypeId, ParameterDirection.Input);
-                dbProvider.SetParameter("CodeNumber", SqlDbType.NVarChar, document.CodeNumber, ParameterDirection.Input);
-                dbProvider.SetParameter("CodeNotation", SqlDbType.NVarChar, document.CodeNotation, ParameterDirection.Input);
-                dbProvider.SetParameter("IssuedDate", SqlDbType.Date, document.IssuedDate, ParameterDirection.Input);
-                dbProvider.SetParameter("Subject", SqlDbType.NVarChar, document.Subject, ParameterDirection.Input);
-                dbProvider.SetParameter("LanguageId", SqlDbType.Int, document.LanguageId, ParameterDirection.Input);
-                dbProvider.SetParameter("PageAmount", SqlDbType.Int, document.PageAmount, ParameterDirection.Input);
-                dbProvider.SetParameter("Description", SqlDbType.NVarChar, document.Description, ParameterDirection.Input);
-                dbProvider.SetParameter("OrganizationIssued", SqlDbType.NVarChar, document.OrganizationIssued, ParameterDirection.Input);
-                dbProvider.SetParameter("InforSign", SqlDbType.NVarChar, document.InforSign, ParameterDirection.Input);
-                dbProvider.SetParameter("Keyword", SqlDbType.NVarChar, document.Keyword, ParameterDirection.Input);
-                dbProvider.SetParameter("Mode", SqlDbType.NVarChar, document.Mode, ParameterDirection.Input);
-                dbProvider.SetParameter("ConfidenceLevelId", SqlDbType.Int, document.ConfidenceLevelId, ParameterDirection.Input);
-                dbProvider.SetParameter("Autograph", SqlDbType.NVarChar, document.Autograph, ParameterDirection.Input);
-                dbProvider.SetParameter("FormatId", SqlDbType.Int, document.FormatId, ParameterDirection.Input);
-                dbProvider.SetParameter("ComputerFileId", SqlDbType.Int, document.ComputerFileId, ParameterDirection.Input);
-                dbProvider.SetParameter("CreatedDate", SqlDbType.Date, document.CreatedDate, ParameterDirection.Input);
-                dbProvider.SetParameter("CreatedBy", SqlDbType.NVarChar, document.CreatedBy, ParameterDirection.Input);
-                dbProvider.SetParameter("Signature", SqlDbType.Int, document.Signature);
-                dbProvider.SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output);
-                dbProvider.SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output);
-                dbProvider.ExcuteNonQuery();
-
-                dbProvider.Complete();
+                dbProvider.SetQuery("DOCUMENT_CREATE", System.Data.CommandType.StoredProcedure)
+                .SetParameter("DocumentCode", SqlDbType.NVarChar, document.DocumentCode, ParameterDirection.Input)
+                .SetParameter("DocOrdinal", SqlDbType.Int, document.DocOrdinal, ParameterDirection.Input)
+                .SetParameter("FileId", SqlDbType.Int, document.FileId, ParameterDirection.Input)
+                .SetParameter("DocTypeId", SqlDbType.Int, document.DocTypeId, ParameterDirection.Input)
+                .SetParameter("CodeNumber", SqlDbType.NVarChar, document.CodeNumber, ParameterDirection.Input)
+                .SetParameter("CodeNotation", SqlDbType.NVarChar, document.CodeNotation, ParameterDirection.Input)
+                .SetParameter("IssuedDate", SqlDbType.Date, document.IssuedDate, ParameterDirection.Input)
+                .SetParameter("Subject", SqlDbType.NVarChar, document.Subject, ParameterDirection.Input)
+                .SetParameter("LanguageId", SqlDbType.Int, document.LanguageId, ParameterDirection.Input)
+                .SetParameter("PageAmount", SqlDbType.Int, document.PageAmount, ParameterDirection.Input)
+                .SetParameter("Description", SqlDbType.NVarChar, document.Description, ParameterDirection.Input)
+                .SetParameter("OrganizationIssued", SqlDbType.NVarChar, document.OrganizationIssued, ParameterDirection.Input)
+                .SetParameter("InforSign", SqlDbType.NVarChar, document.InforSign, ParameterDirection.Input)
+                .SetParameter("Keyword", SqlDbType.NVarChar, document.Keyword, ParameterDirection.Input)
+                .SetParameter("Mode", SqlDbType.NVarChar, document.Mode, ParameterDirection.Input)
+                .SetParameter("Autograph", SqlDbType.NVarChar, document.Autograph, ParameterDirection.Input)
+                .SetParameter("FormatId", SqlDbType.Int, document.FormatId, ParameterDirection.Input)
+                .SetParameter("ComputerFileId", SqlDbType.Int, document.ComputerFileId, ParameterDirection.Input)
+                .SetParameter("ConfidenceLevelId", SqlDbType.Int, document.ConfidenceLevelId, ParameterDirection.Input)
+                .SetParameter("CreatedDate", SqlDbType.Date, document.CreatedDate, ParameterDirection.Input)
+                .SetParameter("CreatedBy", SqlDbType.NVarChar, document.CreatedBy, ParameterDirection.Input)
+                .SetParameter("Signature", SqlDbType.Int, document.Signature)
+                .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
+                .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
+                .GetSingle<Document>(out document).Complete();
                 dbProvider.GetOutValue("ErrorCode", out outCode)
-                           .GetOutValue("ErrorMessage", out outMessage);
+                            .GetOutValue("ErrorMessage", out outMessage);
 
                 if (outCode != "0")
                 {
@@ -145,6 +145,8 @@ namespace DocumentManagement.DAL
                 }
                 else
                 {
+                    result.Item = document;
+                    result.IsSuccess = true;
                     result.ErrorCode = "0";
                     result.ErrorMessage = "";
                 }
@@ -158,6 +160,7 @@ namespace DocumentManagement.DAL
 
         public ReturnResult<Document> UpdateDocument(Document document)
         {
+            document.UpdatedDate = DateTime.Now;
             DbProvider dbProvider;
             string outCode = String.Empty;
             string outMessage = String.Empty;
@@ -207,6 +210,7 @@ namespace DocumentManagement.DAL
                 }
                 else
                 {
+                    result.IsSuccess = true;
                     result.ErrorCode = "0";
                     result.ErrorMessage = "";
                 }
@@ -284,6 +288,29 @@ namespace DocumentManagement.DAL
                 ErrorMessage = outMessage,
             };
         }
-        
+
+        public ReturnResult<Document> GetDocumentBySoVanBan(string soVanBan)
+        {
+            DbProvider dbProvider = new DbProvider();
+            string outCode = String.Empty;
+            string outMessage = String.Empty;
+            var document = new Document();
+            dbProvider.SetQuery("DOCUMENT_GET_BY_SOVANBAN", CommandType.StoredProcedure)
+                .SetParameter("SoVanBan", SqlDbType.NVarChar, soVanBan, 11,ParameterDirection.Input)
+                .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
+                .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
+                .GetSingle<Document>(out document)
+                .Complete();
+            dbProvider.GetOutValue("ErrorCode", out outCode)
+                       .GetOutValue("ErrorMessage", out outMessage);
+
+            return new ReturnResult<Document>()
+            {
+                Item = document,
+                ErrorCode = outCode,
+                ErrorMessage = outMessage,
+            };
+        }
+
     }
 }

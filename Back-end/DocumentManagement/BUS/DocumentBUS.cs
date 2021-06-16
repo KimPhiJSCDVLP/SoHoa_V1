@@ -52,6 +52,12 @@ namespace DocumentManagement.BUS
             var result = DocumentDAL.GetDocumentById(documentId);
             return result;
         }
+
+        public ReturnResult<Document> GetDocumentBySoVanBan(string soVanBan)
+        {
+            var result = DocumentDAL.GetDocumentBySoVanBan(soVanBan);
+            return result;
+        }
         public ReturnResult<Document> GetListByProfileId(Profiles profile)
         {
             var result = DocumentDAL.GetListByProfileId(profile);

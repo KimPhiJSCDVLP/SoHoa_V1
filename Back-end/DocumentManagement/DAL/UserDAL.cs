@@ -87,6 +87,40 @@ namespace DocumentManagement.DAL
             return result;
         }
 
+        public ReturnResult<User> GetUserByUserName(string userName)
+        {
+            var result = new ReturnResult<User>();
+            User item = new User();
+            DbProvider dbProvider = new DbProvider();
+            string outCode = String.Empty;
+            string outMessage = String.Empty;
+            int totalRows = 0;
+            try
+            {
+                dbProvider.SetQuery("USER_GET_BY_USERNAME", CommandType.StoredProcedure)
+               .SetParameter("UserName", SqlDbType.NVarChar, userName, 50, ParameterDirection.Input)
+               .SetParameter("ErrorCode", SqlDbType.NVarChar, DBNull.Value, 100, ParameterDirection.Output)
+               .SetParameter("ErrorMessage", SqlDbType.NVarChar, DBNull.Value, 4000, ParameterDirection.Output)
+               .GetSingle<User>(out item)
+               .Complete();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            dbProvider.GetOutValue("ErrorCode", out outCode)
+                       .GetOutValue("ErrorMessage", out outMessage);
+
+            return new ReturnResult<User>()
+            {
+                Item = item,
+                ErrorCode = outCode,
+                ErrorMessage = outMessage,
+                TotalRows = totalRows
+            };
+        }
         public ReturnResult<User> GetUserByID(int id)
         {
             var result = new ReturnResult<User>();

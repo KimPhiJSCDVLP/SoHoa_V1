@@ -43,12 +43,7 @@ namespace DocumentManagement.BUS
         {
             return await logDAL.GetLogWithPaging(condition);
         }
-        public ReturnResult<Log> GetPagingWithSearchResults(BaseCondition<Log> condition)
-        {
-            var result = logDAL.GetPagingWithSearchResults(condition);
-            return result;
-        }
-        public async Task<ReturnResult<LogDTO>> GetAllLog()
+        public async Task<ReturnResult<Log>> GetAllLog()
         {
             var result = await logDAL.GetAllLog();
             return result;

@@ -71,13 +71,14 @@
             <tbody>
               <tr *ngFor="let logActivity of logActivitys; index as i">
                 <td>{{ i+1 }}</td>
-                <td>{{ logActivity.documentCode }}</td>
-                <td>  
-                  <span *ngIf="logActivity.updatorName">
-                    {{ logActivity.updatorName }}
-                  </span>
+                <td>{{ logActivity.maDinhDanh }}</td>
+                <td>
                   <span *ngIf="logActivity.creatorName">
-                    {{ logActivity.creatorName }}
+                    Người cập nhật gần đây: <b>{{ logActivity.creatorName }}</b>
+                  </span>
+                  <br>
+                  <span *ngIf="logActivity.updatorName">
+                    Người tạo: <b>{{ logActivity.updatorName }}</b>
                   </span>
                 </td>
                 <td>  
@@ -89,9 +90,9 @@
                   </span>
                 </td>
                 <td>
-                  - Số Thứ Tự VB: {{ logActivity.docOrdinal }}
+                  - Số Thứ Tự VB: {{ logActivity.sttVanBan }}
                   <br>
-                  - Ghi chú: {{ logActivity.description }}
+                  - Ghi chú: {{ logActivity.content }}
                 </td>
                 <td>
                   <span *ngIf="logActivity.createDate && logActivity.creatorName" class="badge badge-info">

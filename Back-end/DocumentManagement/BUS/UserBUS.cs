@@ -50,6 +50,12 @@ namespace DocumentManagement.BUS
             return rs;
         }
 
+        public ReturnResult<User> GetUserByUserName(string userName)
+        {
+            var rs = userDAL.GetUserByUserName(userName);
+            return rs;
+        }
+
         public ReturnResult<User> CreateUser(User user)
         {
             return userDAL.CreateUser(user);

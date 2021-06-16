@@ -7,7 +7,7 @@ namespace DocumentManagement.Models.Entity
 {
     public class Log
     {
-        public int NhatKyId { get; set; }
+        public int LogId { get; set; }
         public string Action { get; set; }
         public int VanBanId { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -15,5 +15,7 @@ namespace DocumentManagement.Models.Entity
         public DateTime UpdatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public string DocumentNumber { get; set; }
+        public string UserName { get; set; }
     }
 }

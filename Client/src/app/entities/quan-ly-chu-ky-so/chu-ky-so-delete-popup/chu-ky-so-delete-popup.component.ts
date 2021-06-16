@@ -20,7 +20,6 @@ export class ChuKySoDeletePopupComponent implements OnInit {
       ) { }
 
   ngOnInit(): void {
-    console.log(this.popupService.result.item);
     this.signature = this.popupService.result.item;
   }
 

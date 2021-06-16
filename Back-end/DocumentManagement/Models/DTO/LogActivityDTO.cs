@@ -14,8 +14,9 @@ namespace DocumentManagement.Models.DTO
         public string CreatorName { get; set; }
 
         public string UpdatorName { get; set; }
-
         public DateTime UpdateDate { get; set; }
         public DateTime CreateDate { get; set; }
+        public string MaDinhDanh { get; set; }
+        public int STTVanBan { get; set; }
     }
 }
