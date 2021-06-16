@@ -7,13 +7,13 @@ using XamMobile.Services.Models;
 
 namespace XamMobile.Services
 {
-    public class InvoiceService : BaseService, IInvoiceService
+    public class LogService : BaseService, ILogService
     {
-        public async Task<List<PhieuThuEntity>> GetInvoices(int phongId)
+        public async Task<List<LogEntity>> GetLogs()
         {
             try
             {
-                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<PhieuThuEntity>>>($"{AppConstant.AppConstant.APIPhieuThu}?$filter=PhongId eq {phongId}");
+                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<LogEntity>>>($"{AppConstant.AppConstant.APILog}");
                 if (userResponse.Message.Code == ResponseCode.SUCCESS)
                 {
                     return userResponse.Result.Results;

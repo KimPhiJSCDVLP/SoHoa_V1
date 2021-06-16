@@ -47,16 +47,16 @@ namespace XamMobile.ViewModels
                 var res = await iUserService.Login(UserName, Password);
                 if (res.IsSuccess)
                 {
-                    var userInfoResponse = await iUserService.GetUserInfo();
-                    if (userInfoResponse != null)
-                    {
-                        UserInfoSetting.UserInfos = userInfoResponse;
-                    }
-                    else
-                    {
-                        UserDialogs.Instance.Alert("Có lỗi xảy ra khi lấy thông tin người dùng");
-                        return;
-                    }
+                    //var userInfoResponse = await iUserService.GetUserInfo();
+                    //if (userInfoResponse != null)
+                    //{
+                    //    UserInfoSetting.UserInfos = userInfoResponse;
+                    //}
+                    //else
+                    //{
+                    //    UserDialogs.Instance.Alert("Có lỗi xảy ra khi lấy thông tin người dùng");
+                    //    return;
+                    //}
 
                     await NavigationService.NavigateAsync(nameof(MenuPage) + "/" + nameof(NavigationPage) + "/" + nameof(HomeMenuPage));
                 }

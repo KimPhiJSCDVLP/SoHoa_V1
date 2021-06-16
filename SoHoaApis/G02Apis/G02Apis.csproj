@@ -195,6 +195,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +217,10 @@
     <Compile Include="Models\NgonNgu.cs">
       <DependentUpon>SoHoaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NhatKy.cs">
+      <DependentUpon>SoHoaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyDTO.cs" />
     <Compile Include="Models\SoHoaModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,6 +235,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SoHoaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SoHoaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\S_Authority.cs">
       <DependentUpon>SoHoaModel.tt</DependentUpon>

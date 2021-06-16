@@ -6,8 +6,8 @@ using XamMobile.EntityModels;
 
 namespace XamMobile.Services
 {
-    public interface IInvoiceService
+    public interface ILogService
     {
-        Task<List<PhieuThuEntity>> GetInvoices(int hoGiaDinhId);
+        Task<List<LogEntity>> GetLogs();
     }
 }

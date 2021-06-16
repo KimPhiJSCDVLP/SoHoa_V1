@@ -23,7 +23,7 @@ namespace XamMobile.ViewModels
         }
 
         public DelegateCommand GotoUserInfoPageCommand { get; private set; }
-        public DelegateCommand GotoInvoicePageCommand { get; private set; }
+        public DelegateCommand GotoLogPageCommand { get; private set; }
 
         INotificationService iNotificationService;
 
@@ -40,7 +40,7 @@ namespace XamMobile.ViewModels
             //});
 
             GotoUserInfoPageCommand = new DelegateCommand(() => { GotoPage("UserPage"); });
-            GotoInvoicePageCommand = new DelegateCommand(() => { GotoPage("InvoicePage"); });
+            GotoLogPageCommand = new DelegateCommand(() => { GotoPage("LogPage"); });
             LoadAllData();
         }
 

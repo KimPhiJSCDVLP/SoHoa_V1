@@ -56,5 +56,7 @@ namespace G02Apis.Models
         public virtual DbSet<S_VanBan> S_VanBan { get; set; }
         public virtual DbSet<Tinh> Tinhs { get; set; }
         public virtual DbSet<XaPhuong> XaPhuongs { get; set; }
+        public virtual DbSet<NhatKy> NhatKies { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

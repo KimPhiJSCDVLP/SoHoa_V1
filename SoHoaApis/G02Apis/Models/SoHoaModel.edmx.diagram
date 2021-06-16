@@ -61,6 +61,9 @@
         <AssociationConnector Association="SoHoaModel.FK_S_VanBan_S_TinhTrangVatLy" ManuallyRouted="false" />
         <AssociationConnector Association="SoHoaModel.FK_S_Role_Uers_Atuthority__S_Users" ManuallyRouted="false" />
         <AssociationConnector Association="SoHoaModel.FK_S_User_Role_S_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SoHoaModel.NhatKy" Width="1.5" PointX="21" PointY="4.5" />
+        <EntityTypeShape EntityType="SoHoaModel.sysdiagram" Width="1.5" PointX="13.375" PointY="12.75" />
+        <AssociationConnector Association="SoHoaModel.FK_NhatKy_S_VanBan" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

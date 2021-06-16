@@ -14,13 +14,13 @@ using XamMobile.Ultil;
 
 namespace XamMobile.ViewModels
 {
-    public class InvoiceViewModel : ViewModelBase
+    public class LogViewModel : ViewModelBase
     {
-        private ObservableCollection<PhieuThuEntity> _invoices;
-        public ObservableCollection<PhieuThuEntity> Invoices
+        private ObservableCollection<LogEntity> _logs;
+        public ObservableCollection<LogEntity> Logs
         {
-            get { return _invoices; }
-            set { SetProperty(ref _invoices, value); }
+            get { return _logs; }
+            set { SetProperty(ref _logs, value); }
         }
 
         private ObservableCollection<string> _actionDatasource;
@@ -30,22 +30,22 @@ namespace XamMobile.ViewModels
             set { SetProperty(ref _actionDatasource, value); }
         }
 
-        private double _invoiceListHeight;
-        public double InvoiceListHeight
+        private double _logListHeight;
+        public double LogListHeight
         {
-            get { return _invoiceListHeight; }
-            set { SetProperty(ref _invoiceListHeight, value); }
+            get { return _logListHeight; }
+            set { SetProperty(ref _logListHeight, value); }
         }
 
-        IInvoiceService invoiceService;
+        ILogService logService;
         IPermissionService _permissionService;
         DownloadService downloadService { get; set; }
         IFileService _fileService;
 
-        public InvoiceViewModel(INavigationService navigationService, IInvoiceService invoiceService) : base(navigationService)
+        public LogViewModel(INavigationService navigationService, ILogService logService) : base(navigationService)
         {
-            this.invoiceService = invoiceService;
-            Invoices = new ObservableCollection<PhieuThuEntity>();
+            this.logService = logService;
+            Logs = new ObservableCollection<LogEntity>();
             ActionDatasource = new ObservableCollection<string>(new List<string>() { "Xuất phiếu thu" });
             _permissionService = Xamarin.Forms.DependencyService.Get<DependencyServices.IPermissionService>();
             _fileService = Xamarin.Forms.DependencyService.Get<DependencyServices.IFileService>();
@@ -60,23 +60,23 @@ namespace XamMobile.ViewModels
 
         private void CalculateHeight()
         {
-            InvoiceListHeight = Invoices.Count * 90;
+            LogListHeight = Logs.Count * 90;
         }
 
         private async void LoadAllData()
         {
             using (UserDialogs.Instance.Loading("Đang tải"))
             {
-                var invoiceRes = await invoiceService.GetInvoices(UserInfoSetting.UserInfos.PhongId);
+                var invoiceRes = await logService.GetLogs();
                 if (invoiceRes == null)
                 {
                     UserDialogs.Instance.Alert("Có lỗi khi tải thông tin phiếu thu");
                     return;
                 }
-                Invoices.Clear();
+                Logs.Clear();
                 foreach (var item in invoiceRes)
                 {
-                    Invoices.Add(item);
+                    Logs.Add(item);
                 }
                 CalculateHeight();
             }

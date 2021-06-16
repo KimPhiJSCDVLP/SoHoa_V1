@@ -42,14 +42,14 @@ namespace XamMobile
             containerRegistry.RegisterForNavigation<UserPage, UserPageViewModel>();
             containerRegistry.RegisterForNavigation<UserPopupPage, UserPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<NotificationPopupPage, NotificationPopupPageViewModel>();
-            containerRegistry.RegisterForNavigation<InvoicePage, InvoiceViewModel>();
+            containerRegistry.RegisterForNavigation<LogPage, LogViewModel>();
 
 
             // Services dependence injection
             //containerRegistry.Register<IBaseService, BaseService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<INotificationService, NotificationService>();
-            containerRegistry.RegisterSingleton<IInvoiceService, InvoiceService>();
+            containerRegistry.RegisterSingleton<ILogService, LogService>();
             containerRegistry.RegisterSingleton<IUploadFileService, UploadFileService>();
 
 

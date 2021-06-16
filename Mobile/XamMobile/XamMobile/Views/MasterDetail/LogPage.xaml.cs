@@ -12,18 +12,18 @@ using XamMobile.ViewModels;
 namespace XamMobile.Views.MasterDetail
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InvoicePage : ContentPage
+    public partial class LogPage : ContentPage
     {
         public PopupMenu Popup { get; set; }
-        private InvoiceViewModel viewModel { get; set; }
-        public InvoicePage()
+        private LogViewModel viewModel { get; set; }
+        public LogPage()
         {
             InitializeComponent();
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            viewModel = (InvoiceViewModel)BindingContext;
+            viewModel = (LogViewModel)BindingContext;
             var listView = ((ListView)sender);
             if (listView.SelectedItem == null)
                 return;
@@ -35,7 +35,7 @@ namespace XamMobile.Views.MasterDetail
         {
             var but = (Button)sender;
             var data = (PhieuThuEntity)but.CommandParameter;
-            this.viewModel = (InvoiceViewModel)BindingContext;
+            this.viewModel = (LogViewModel)BindingContext;
             Popup = new PopupMenu()
             {
                 BindingContext = viewModel

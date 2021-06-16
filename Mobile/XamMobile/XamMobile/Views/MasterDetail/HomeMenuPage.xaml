@@ -57,7 +57,7 @@
                         <Frame Grid.Column="0" HorizontalOptions="FillAndExpand" CornerRadius="10" BackgroundColor="WhiteSmoke" Margin="0,0,2,0">
                             <StackLayout>
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding GotoInvoicePageCommand}"></TapGestureRecognizer>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding GotoLogPageCommand}"></TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>
                                 <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Source="invoice_red_icon.png" Aspect="AspectFit"></Image>
                                 <Label LineBreakMode="NoWrap" HorizontalTextAlignment="Center" Text="Nhật ký" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>

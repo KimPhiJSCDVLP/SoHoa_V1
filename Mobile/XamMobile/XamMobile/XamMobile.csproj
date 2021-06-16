@@ -26,6 +26,9 @@
     <Compile Update="Views\MasterDetail\HomeMenuPage.xaml.cs">
       <DependentUpon>HomeMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MasterDetail\LogPage.xaml.cs">
+      <DependentUpon>LogPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +38,7 @@
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MasterDetail\InvoicePage.xaml">
+    <EmbeddedResource Update="Views\MasterDetail\LogPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MasterDetail\NotificationPopupPage.xaml">

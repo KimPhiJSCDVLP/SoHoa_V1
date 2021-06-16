@@ -14,6 +14,12 @@ namespace G02Apis.Models
     
     public partial class S_VanBan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public S_VanBan()
+        {
+            this.NhatKies = new HashSet<NhatKy>();
+        }
+    
         public int VanBanID { get; set; }
         public int HoSoID { get; set; }
         public string MaDinhDanh { get; set; }
@@ -52,5 +58,7 @@ namespace G02Apis.Models
         public virtual S_LoaiVanBan S_LoaiVanBan { get; set; }
         public virtual S_MucDoTinCay S_MucDoTinCay { get; set; }
         public virtual S_TinhTrangVatLy S_TinhTrangVatLy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NhatKy> NhatKies { get; set; }
     }
 }
