@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"  Text="{Binding CurrentData.Title}" TextColor="{StaticResource MainColor}" FontSize="20" HorizontalOptions="Center"></Label>
+                <Label Grid.Column="0"  Text="{Binding CurrentData.CustomNameProfileNumber}" TextColor="{StaticResource MainColor}" FontSize="20" HorizontalOptions="Center"></Label>
                 <StackLayout Grid.Column="1">
                     <Button
                     BackgroundColor="Transparent"
@@ -42,7 +42,14 @@
             <ScrollView>
                 <StackLayout>
                     <StackLayout HorizontalOptions="FillAndExpand" Padding="10">
-                        <htmlLabel:HtmlLabel Text="{Binding CurrentData.Content}"/>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameProfileNumber}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameProfileCode}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.ThoiGianBatDauFormat}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.ThoiGianKetThucFormat}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameTongSoVanBan}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameThoiHanBaoQuan}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameKyHieuThongTin}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CurrentData.CustomNameTuKhoa}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
                         <!--<Image Source="notificationTemplate.png"></Image>-->
                     </StackLayout>
                     <!--<ActivityIndicator Color="{StaticResource MainColor}" IsRunning="True"></ActivityIndicator>-->

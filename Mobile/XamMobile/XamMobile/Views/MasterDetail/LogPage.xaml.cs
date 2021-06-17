@@ -31,22 +31,22 @@ namespace XamMobile.Views.MasterDetail
             listView.SelectedItem = null;
         }
 
-        void ShowPopup_Clicked(object sender, EventArgs e)
-        {
-            var but = (Button)sender;
-            var data = (PhieuThuEntity)but.CommandParameter;
-            this.viewModel = (LogViewModel)BindingContext;
-            Popup = new PopupMenu()
-            {
-                BindingContext = viewModel
-            };
-            Popup.OnItemSelected += (item) =>
-            {
-                CaseUploadFileClicked(item, data);
-            };
-            Popup.SetBinding(PopupMenu.ItemsSourceProperty, "ActionDatasource");
-            Popup?.ShowPopup(sender as View);
-        }
+        //void ShowPopup_Clicked(object sender, EventArgs e)
+        //{
+        //    var but = (Button)sender;
+        //    var data = (PhieuThuEntity)but.CommandParameter;
+        //    this.viewModel = (LogViewModel)BindingContext;
+        //    Popup = new PopupMenu()
+        //    {
+        //        BindingContext = viewModel
+        //    };
+        //    Popup.OnItemSelected += (item) =>
+        //    {
+        //        CaseUploadFileClicked(item, data);
+        //    };
+        //    Popup.SetBinding(PopupMenu.ItemsSourceProperty, "ActionDatasource");
+        //    Popup?.ShowPopup(sender as View);
+        //}
 
         void CaseUploadFileClicked(string val, object obj)
         {

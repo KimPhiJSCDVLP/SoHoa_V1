@@ -39,6 +39,39 @@ namespace XamMobile.Services
             }
         }
 
+        public async Task<UserEntity> GetUserById(int userId)
+        {
+            try
+            {
+                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<UserEntity>>($"{AppConstant.AppConstant.APIUser}?$filter=UserID eq {userId}");
+                if (userResponse.Message.Code == ResponseCode.SUCCESS)
+                {
+                    return userResponse.Result.Results;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public async Task<List<UserEntity>> GetUsers()
+        {
+            try
+            {
+                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<UserEntity>>>($"{AppConstant.AppConstant.APIUser}");
+                if (userResponse.Message.Code == ResponseCode.SUCCESS)
+                {
+                    return userResponse.Result.Results;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public async Task<MessageResponse> Login(string userName, string password)
         {
             MessageResponse result = new MessageResponse();

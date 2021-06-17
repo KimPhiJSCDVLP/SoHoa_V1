@@ -47,7 +47,9 @@ namespace XamMobile
 
             // Services dependence injection
             //containerRegistry.Register<IBaseService, BaseService>();
+            containerRegistry.RegisterSingleton<IHoSoService, HoSoService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterSingleton<IVanBanService, VanBanService>();
             containerRegistry.RegisterSingleton<INotificationService, NotificationService>();
             containerRegistry.RegisterSingleton<ILogService, LogService>();
             containerRegistry.RegisterSingleton<IUploadFileService, UploadFileService>();

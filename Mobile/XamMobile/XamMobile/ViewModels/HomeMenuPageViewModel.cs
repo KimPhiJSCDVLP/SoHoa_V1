@@ -4,6 +4,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 using XamMobile.EntityModels;
@@ -15,8 +16,8 @@ namespace XamMobile.ViewModels
 {
     public class HomeMenuPageViewModel : ViewModelBase
     {
-        private ObservableCollection<NotificationEntity> _notifications;
-        public ObservableCollection<NotificationEntity> Notifications
+        private ObservableCollection<HoSoEntity> _notifications;
+        public ObservableCollection<HoSoEntity> Notifications
         {
             get { return _notifications; }
             set { SetProperty(ref _notifications, value); }
@@ -25,19 +26,13 @@ namespace XamMobile.ViewModels
         public DelegateCommand GotoUserInfoPageCommand { get; private set; }
         public DelegateCommand GotoLogPageCommand { get; private set; }
 
-        INotificationService iNotificationService;
+        //INotificationService iNotificationService;
+        IHoSoService hoSoService;
 
-        public HomeMenuPageViewModel(INavigationService navigationService, INotificationService iNotificationService) : base(navigationService)
+        public HomeMenuPageViewModel(INavigationService navigationService, IHoSoService hoSoService) : base(navigationService)
         {
-            this.iNotificationService = iNotificationService;
-            Notifications = new ObservableCollection<NotificationEntity>();
-            //{
-            //    new NotificationEntity(){Title = "A young woman leads refugees toward independence", Content = "She’s lived in a refugee camp since her family fled war when she was a little girl, but Grace Nshimiyumukiza has always wanted to be the one to help, not just be helped."},
-            //    new NotificationEntity(){Title = "News reporting grantee winner quantifies how climate change is affecting everyday life", Content = "Josh Landis lived and worked in Antarctica from 1999 to 2001 as an editor at The Antarctic Sun, the only newspaper on the continent at that time. And while he was hardly the only person on the continent, it could often feel like that in a peaceful sort of way."},
-            //    new NotificationEntity(){Title = "A young woman leads refugees toward independence", Content = "She’s lived in a refugee camp since her family fled war when she was a little girl, but Grace Nshimiyumukiza has always wanted to be the one to help, not just be helped."},
-            //    new NotificationEntity(){Title = "Learning how climate change affects everyday life", Content = "“Being able to sit on the ice, with penguins walking by and seeing killer whales spyhopping in the water, rising and falling right in front of me, stuck with me forever,”"},
-            //    new NotificationEntity(){Title = "A young woman leads refugees toward independence", Content = "She’s lived in a refugee camp since her family fled war when she was a little girl, but Grace Nshimiyumukiza has always wanted to be the one to help, not just be helped."}
-            //});
+            this.hoSoService = hoSoService;
+            Notifications = new ObservableCollection<HoSoEntity>();
 
             GotoUserInfoPageCommand = new DelegateCommand(() => { GotoPage("UserPage"); });
             GotoLogPageCommand = new DelegateCommand(() => { GotoPage("LogPage"); });
@@ -61,21 +56,21 @@ namespace XamMobile.ViewModels
 
         private async void LoadAllData()
         {
-            //using (UserDialogs.Instance.Loading("Đang tải"))
-            //{
-            //    var notificationResults = await iNotificationService.GetAllNotification(UserInfoSetting.UserInfos.ToaNhaId);
-            //    if (notificationResults == null)
-            //    {
-            //        UserDialogs.Instance.Alert("Có lỗi khi tải thông báo");
-            //        return;
-            //    }
-            //    Notifications.Clear();
-            //    foreach (var item in notificationResults)
-            //    {
-            //        Notifications.Add(item);
-            //    }
-            //    Console.WriteLine("");
-            //}
+            using (UserDialogs.Instance.Loading("Đang tải"))
+            {
+                var notificationResults = (await hoSoService.GetDSHoSo()).OrderBy(x => x.TrangThai);
+                if (notificationResults == null)
+                {
+                    UserDialogs.Instance.Alert("Có lỗi khi tải thông báo");
+                    return;
+                }
+                Notifications.Clear();
+                foreach (var item in notificationResults)
+                {
+                    Notifications.Add(item);
+                }
+                Console.WriteLine("");
+            }
         }
 
         public async void OpenUserPopUp(object obj = null)

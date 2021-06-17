@@ -15,5 +15,7 @@ namespace XamMobile.Services
         Task<List<NhanKhauEntity>> GetNhanKhau(int hoGiaDinhId);
         Task<NhanKhauEntity> SaveNhanKhau(NhanKhauEntity model);
         Task<bool> DeleteNhanKhau(NhanKhauEntity model);
+        Task<UserEntity> GetUserById(int useId);
+        Task<List<UserEntity>> GetUsers();
     }
 }

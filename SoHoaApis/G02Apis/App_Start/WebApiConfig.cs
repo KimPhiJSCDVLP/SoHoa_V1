@@ -31,7 +31,6 @@ namespace G02Apis
             .Add(new MediaTypeHeaderValue("text/html"));
 
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<S_Users>("S_Users");
             builder.EntitySet<S_Authority>("S_Authority");
             builder.EntitySet<S_ComputerFile>("S_ComputerFile");
             builder.EntitySet<S_CoQuan>("S_CoQuan");
@@ -55,13 +54,16 @@ namespace G02Apis
             builder.EntitySet<S_Uers_Atuthority>("S_Uers_Atuthority");
             builder.EntitySet<S_User_Role>("S_User_Role");
             builder.EntitySet<S_VanBan>("S_VanBan");
-            builder.EntitySet<CommonStatu>("CommonStatu");
             builder.EntitySet<DiaChi>("DiaChi");
             builder.EntitySet<DigitalSignature>("DigitalSignature");
             builder.EntitySet<Huyen>("Huyen");
-            builder.EntitySet<NgonNgu>("NgonNgu");
             builder.EntitySet<Tinh>("Tinh");
             builder.EntitySet<XaPhuong>("XaPhuong");
+            builder.EntitySet<CommonStatu>("CommonStatus");
+            builder.EntitySet<NgonNgu>("NgonNgus");
+            builder.EntitySet<S_MucDoTinCay>("S_MucDoTinCay");
+            builder.EntitySet<NhatKy>("NhatKies");
+            builder.EntitySet<S_Users>("S_Users");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
 

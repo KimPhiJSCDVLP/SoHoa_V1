@@ -7,7 +7,7 @@
              x:Class="XamMobile.Views.MasterDetail.LogPage"
              NavigationPage.HasBackButton="True"
              NavigationPage.HasNavigationBar="True"
-             Title="Danh sách nhật ký">
+             Title="Nhật ký nhập liệu">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ListView HasUnevenRows="True" ItemSelected="ListView_ItemSelected" ItemsSource="{Binding Logs}" RowHeight="60" HeightRequest="{Binding LogListHeight}">
@@ -21,19 +21,19 @@
                                         <ColumnDefinition Width="45" />
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Grid.Column="0">
-                                        <Label Style="{StaticResource TitleLabel}" Text="{Binding SoVanBan}"></Label>
-                                        <Label Style="{StaticResource TitleLabel}" Text="{Binding NguoiTao}"></Label>
-                                        <Label Style="{StaticResource TitleLabel}" Text="{Binding HanhDong}"></Label>
-                                        <Label Style="{StaticResource ContentLabel}" Text="{Binding CreatedDateFormat}"></Label>
+                                        <Label TextColor="Red" Style="{StaticResource TitleLabel}" Text="{Binding CustomNameDocumentNumber}"></Label>
+                                        <Label TextColor="Blue" Style="{StaticResource TitleLabel}" Text="{Binding TenNguoiTao}"></Label>
+                                        <Label TextColor="Red" Style="{StaticResource TitleLabel}" Text="{Binding Action}"></Label>
+                                        <Label TextColor="Blue" Style="{StaticResource ContentLabel}" Text="{Binding CreatedDateFormat}"></Label>
                                     </StackLayout>
-                                    <StackLayout Grid.Column="1" Padding="5">
+                                    <!--<StackLayout Grid.Column="1" Padding="5">
                                         <Button
                                                     BackgroundColor="Transparent"
                                                     Clicked="ShowPopup_Clicked"
                                                     CommandParameter="{Binding .}"
                                                     VerticalOptions="Start"
                                                     ImageSource="dot_icon.png" />
-                                    </StackLayout>
+                                    </StackLayout>-->
                                 </Grid>
                             </Frame>
                         </ViewCell>

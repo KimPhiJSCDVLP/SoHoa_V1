@@ -37,9 +37,9 @@
                                                         <Image VerticalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"  Source="bell_parent_red_icon.png"></Image>
                                                     </StackLayout>
                                                     <StackLayout Grid.Column="1">
-                                                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding Title}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
-                                                        <!--<htmlLabel:HtmlLabel  MaxLines="3"  LineBreakMode="TailTruncation" FontSize="{StaticResource FontSizeSmall}" Text="{Binding Content}"/>-->
-                                                        <Label MaxLines="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding ContentConvert}" FontSize="{StaticResource FontSizeSmall}"></Label>
+                                                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CustomNameProfileNumber}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                                                        <Label LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding CustomNameProfileCode}" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                                                        <Label TextColor="{Binding TextColor}" MaxLines="2" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start" Text="{Binding TrangThai}" FontSize="{StaticResource FontSizeSmall}"></Label>
                                                     </StackLayout>
                                                 </Grid>
                                             </StackLayout>

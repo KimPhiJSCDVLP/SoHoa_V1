@@ -9,8 +9,8 @@ namespace XamMobile.ViewModels
 {
     public class NotificationPopupPageViewModel : ViewModelBase
     {
-        private NotificationEntity _currentData;
-        public NotificationEntity CurrentData
+        private HoSoEntity _currentData;
+        public HoSoEntity CurrentData
         {
             get { return _currentData; }
             set { SetProperty(ref _currentData, value); }
@@ -39,7 +39,7 @@ namespace XamMobile.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            CurrentData = parameters.GetValue<NotificationEntity>("obj");
+            CurrentData = parameters.GetValue<HoSoEntity>("obj");
             //HtmlWebViewSource.Html = CurrentData.Content;
             base.OnNavigatedTo(parameters);
         }

@@ -13,8 +13,8 @@ namespace XamMobile.EntityModels
         public Nullable<int> VanBanId { get; set; }
         [JsonProperty("SoVanBan")]
         public string SoVanBan { get; set; }
-        [JsonProperty("HanhDong")]
-        public string HanhDong { get; set; }
+        [JsonProperty("Action")]
+        public string Action { get; set; }
         [JsonProperty("CreatedDate")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
 
@@ -22,16 +22,26 @@ namespace XamMobile.EntityModels
         public Nullable<System.DateTime> UpdatedDate { get; set; }
 
         [JsonProperty("CreatedBy")]
-        public string CreatedBy { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
 
         [JsonProperty("UpdatedBy")]
-        public string UpdatedBy { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
 
+        [JsonProperty("TenNguoiTao")]
+        public string TenNguoiTao { get; set; }
         public string CreatedDateFormat
         {
             get
             {
                 return CreatedDate?.ToString("dd - MMM - yyyy HH:mm:ss");
+            }
+        }
+
+        public string CustomNameDocumentNumber
+        {
+            get
+            {
+                return $"Số văn bản: {SoVanBan}"; 
             }
         }
     }
