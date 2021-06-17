@@ -86,15 +86,13 @@
               <td>{{ document.typeName }}</td>
               <td>{{ document.subject }}</td>
               <td>{{ document.pageAmount }}</td>
-              <td>{{ document.confidenceLevel }}</td>
+              <td>{{ document.mucDoTinCay }}</td>
               <td>{{ document.format }}</td>
               <td>{{ document.description }}</td>
               <td *ngIf = 'document.confirmed == 1'><span class="badge badge-success">Đã duyệt</span></td>
               <td *ngIf = 'document.confirmed == 0'><span class="badge badge-danger">Chưa duyệt</span></td>
               <td *ngIf = 'document.status == 1'><span class="badge badge-success">Đã sửa</span></td>
               <td *ngIf = 'document.status == 0'><span class="badge badge-danger">Chưa sửa</span></td>
-              <td></td>
-              <td></td>
               <td style="width:137px" class="center">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', document.documentId]"
                   routerLinkActive="router-link-active"></button>

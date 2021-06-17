@@ -82,5 +82,9 @@ namespace DocumentManagement.Models.Entity.Document
         public DateTime UpdatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public int Status { get; set; }
+        public string MucDoTinCay { get; set; }
+
+        public int Confirmed { get; set; }
     }
 }
