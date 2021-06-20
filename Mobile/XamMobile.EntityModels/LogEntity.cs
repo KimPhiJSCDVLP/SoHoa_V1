@@ -33,7 +33,7 @@ namespace XamMobile.EntityModels
         {
             get
             {
-                return CreatedDate?.ToString("dd - MMM - yyyy HH:mm:ss");
+                return CreatedDate?.ToString("dd/MM/yyyy HH:mm:ss");
             }
         }
 

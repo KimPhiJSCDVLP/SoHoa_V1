@@ -17,9 +17,9 @@ namespace G02Apis.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public S_Users()
         {
-            this.S_NhanVien = new HashSet<S_NhanVien>();
             this.S_Uers_Atuthority = new HashSet<S_Uers_Atuthority>();
             this.S_User_Role = new HashSet<S_User_Role>();
+            this.S_NhanVien = new HashSet<S_NhanVien>();
         }
     
         public int UserID { get; set; }
@@ -34,10 +34,10 @@ namespace G02Apis.Models
         public string PasswordSalt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<S_NhanVien> S_NhanVien { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_Uers_Atuthority> S_Uers_Atuthority { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_User_Role> S_User_Role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<S_NhanVien> S_NhanVien { get; set; }
     }
 }

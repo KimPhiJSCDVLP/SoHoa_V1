@@ -47,36 +47,28 @@ namespace XamMobile.Views.MasterDetail
         void ShowPopup_Clicked(object sender, EventArgs e)
         {
             var but = (Button)sender;
-            var data = (NhanKhauEntity)but.CommandParameter;
+            var data = (NhanVienEntity)but.CommandParameter;
             this.viewModel = (UserPageViewModel)BindingContext;
             Popup = new PopupMenu()
             {
                 BindingContext = viewModel
             };
-            Popup.OnItemSelected += (item) =>
-            {
-                CaseUploadFileClicked(item, data);
-            };
             Popup.SetBinding(PopupMenu.ItemsSourceProperty, "ActionDatasource");
             Popup?.ShowPopup(sender as View);
         }
 
-        void CaseUploadFileClicked(string val, object obj)
-        {
-            if (val == "Chỉnh sửa")
-            {
-                this.viewModel.OpenUserPopUp(obj);
-            }
-            if (val == "Xóa")
-            {
-                this.viewModel.ConfirmDelete(obj);
-            }
-        }
+        //void CaseUploadFileClicked(string val, object obj)
+        //{
+        //    if (val == "Chỉnh sửa")
+        //    {
+        //        this.viewModel.OpenUserPopUp(obj);
+        //    }
+        //}
 
-        private void OnCreatButtonClicked(object sender, EventArgs e)
+        private void OnUpdateButtonClicked(object sender, EventArgs e)
         {
             this.viewModel = (UserPageViewModel)BindingContext;
-            this.viewModel.OpenUserPopUp();
+            this.viewModel.OpenUserPopUp(this.viewModel.UserInfoModel);
         }
     }
 }

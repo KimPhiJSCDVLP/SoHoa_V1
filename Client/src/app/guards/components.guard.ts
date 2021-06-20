@@ -15,15 +15,20 @@ export class ComponentsGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     var urlRedirect = state.url;
-    var userNavItems = ['/QuanLyTaiLieu/taiLieu','/HopSo/quanLyHopSo','/QuanLyHoSo/hoSo'];
+    var userNavItems = ['/QuanLyTaiLieu/taiLieu','/HopSo/quanLyHopSo','/QuanLyHoSo/hoSo', '/QuanLyTaiLieu/taiLieuPdf', '/QuanLyTaiLieu/taiLieuPdf/profileId'];
     this.getRoleName();
     if(this.roleName != undefined){
       if (this.roleName.toLowerCase() === 'user') {
-        if(!userNavItems.includes(urlRedirect)){
-          // this.router.navigate([this.router.url]);
-          this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
-          return false;
-        }
+        // console.log(urlRedirect);
+        // if (!urlRedirect.includes('/QuanLyTaiLieu/taiLieuPdf/profileId') 
+        // && !urlRedirect.includes('/QuanLyHoSo/hoSo/')
+        // && !urlRedirect.includes('/HopSo/quanLyHopSo/75')) {
+        //   if(!(userNavItems.includes(urlRedirect))){
+        //     // this.router.navigate([this.router.url]);
+        //     this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
+        //     return false;
+        //   }
+        // }
       }
     }
     return true;

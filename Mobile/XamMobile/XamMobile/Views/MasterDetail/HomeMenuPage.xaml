@@ -69,7 +69,7 @@
                                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding GotoUserInfoPageCommand}"></TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>
                                 <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Source="user_red_icon.png" Aspect="AspectFit"></Image>
-                                <Label LineBreakMode="NoWrap" HorizontalTextAlignment="Center" Text="Thông tin Người dùng" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
+                                <Label LineBreakMode="NoWrap" HorizontalTextAlignment="Center" Text="Tài khoản" FontAttributes="Bold" FontSize="{StaticResource FontSizeNormal}"></Label>
                             </StackLayout>
                         </Frame>
                     </Grid>

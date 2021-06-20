@@ -51,7 +51,7 @@ namespace XamMobile.ViewModels
             {
                 Icon = "conference_red_icon.png",
                 PageName = nameof(UserPage),
-                Title = "Nhập liệu"
+                Title = "Tài khoản"
             });
 
             MenuItems.Add(new MyMenuItem()

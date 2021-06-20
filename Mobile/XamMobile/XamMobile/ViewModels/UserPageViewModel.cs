@@ -1,9 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 using Prism.Commands;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,34 +19,33 @@ namespace XamMobile.ViewModels
 {
     public class UserPageViewModel : ViewModelBase
     {
-        private ObservableCollection<NhanKhauEntity> _nhanKhaus;
-        public ObservableCollection<NhanKhauEntity> NhanKhaus
-        {
-            get { return _nhanKhaus; }
-            set { SetProperty(ref _nhanKhaus, value); }
-        }
-
         private ObservableCollection<string> _actionDatasource;
         public ObservableCollection<string> ActionDatasource
         {
             get { return _actionDatasource; }
             set { SetProperty(ref _actionDatasource, value); }
         }
-
         public UserPage CurrentPage { get; set; }
 
-        private double _nhanKhauHeight;
-        public double NhanKhauHeight
-        {
-            get { return _nhanKhauHeight; }
-            set { SetProperty(ref _nhanKhauHeight, value); }
-        }
-
-        private UserInfo _userInfoModel;
-        public UserInfo UserInfoModel
+        private NhanVienEntity _userInfoModel;
+        public NhanVienEntity UserInfoModel
         {
             get { return _userInfoModel; }
             set { SetProperty(ref _userInfoModel, value); }
+        }
+
+        private string _ngayCapFormat;
+        public string NgayCapFormat
+        {
+            get { return _ngayCapFormat; }
+            set { SetProperty(ref _ngayCapFormat, value); }
+        }
+
+        private string _ngaySinhFormat;
+        public string NgaySinhFormat
+        {
+            get { return _ngaySinhFormat; }
+            set { SetProperty(ref _ngaySinhFormat, value); }
         }
 
 
@@ -71,28 +68,23 @@ namespace XamMobile.ViewModels
         {
             this.iUserService = iUserService;
             this.iUploadFileService = iUploadFileService;
-            NhanKhaus = new ObservableCollection<NhanKhauEntity>();
             UserInfoModel = UserInfoSetting.UserInfos;
-            ActionDatasource = new ObservableCollection<string>(new List<string>() { "Chỉnh sửa", "Xóa" });
+            //ActionDatasource = new ObservableCollection<string>(new List<string>() { "Chỉnh sửa", "Xóa" });
             _permissionService = Xamarin.Forms.DependencyService.Get<DependencyServices.IPermissionService>();
             _fileService = Xamarin.Forms.DependencyService.Get<DependencyServices.IFileService>();
             downloadService = new DownloadService(_permissionService, _fileService);
             UpdatePictureCommand = new DelegateCommand(async() => { await UpdatePicture(); });
-            MessagingCenter.Unsubscribe<App, NhanKhauEntity>((App)Application.Current, "UpdateNhanKhau");
-            MessagingCenter.Subscribe<App, NhanKhauEntity>((App)Application.Current, "UpdateNhanKhau", (o, serverItem) =>
+            MessagingCenter.Unsubscribe<App, NhanVienEntity>((App)Application.Current, "UpdateNhanVien");
+            MessagingCenter.Subscribe<App, NhanVienEntity>((App)Application.Current, "UpdateNhanVien", (o, serverItem) =>
             {
                 try
                 {
-                    var updateItem = NhanKhaus.FirstOrDefault(x => x.NhanKhauId == serverItem.NhanKhauId);
-                    if (updateItem == null)
+                    if (serverItem != null)
                     {
-                        NhanKhaus.Add(serverItem);
+                        UserInfoSetting.UserInfos = serverItem;
+                        NgayCapFormat = serverItem.NgayCapFormat;
+                        NgaySinhFormat = serverItem.NgaySinhFormat;
                     }
-                    else
-                    {
-                        updateItem = serverItem;
-                    }
-                    CalculateHeight();
                 }
                 catch (Exception ex)
                 {
@@ -115,10 +107,10 @@ namespace XamMobile.ViewModels
                 var imageRes = await iUploadFileService.UploadFile(new Services.Models.FileUploaded() { FileName = fileName, Content = contents });
                 if (!string.IsNullOrEmpty(imageRes))
                 {
-                    var updateAvatar = await iUserService.UpdateHGDAvatar(UserInfoSetting.UserInfos.HoGiaDinhId, imageRes.Replace("\"", ""));
-                    if (updateAvatar)
+                    UserInfoSetting.UserInfos.AnhDaiDien = imageRes.Replace("\"", "");
+                    var updateAvatar = await iUserService.SaveNhanVien(UserInfoSetting.UserInfos);
+                    if (!string.IsNullOrEmpty(updateAvatar.AnhDaiDien))
                     {
-                        UserInfoSetting.UserInfos.AnhDaiDien = imageRes.Replace("\"", "");
                         ImageSourceAvatar = string.IsNullOrEmpty(UserInfoSetting.UserInfos.AnhDaiDien) ? null : await downloadService.DownloadFileIntoMemory($"{AppConstant.AppConstant.Endpoint}{AppConstant.AppConstant.APIGetImage}{UserInfoSetting.UserInfos.AnhDaiDien}");
                         UserDialogs.Instance.Toast("Cập nhật ảnh đại diện thành công");
                     }
@@ -130,7 +122,6 @@ namespace XamMobile.ViewModels
                 System.Console.WriteLine("Exception choosing file: " + ex.ToString());
             }
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -143,19 +134,15 @@ namespace XamMobile.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Đang tải"))
                 {
+                    NgayCapFormat = UserInfoSetting.UserInfos.NgayCapFormat;
+                    NgaySinhFormat = UserInfoSetting.UserInfos.NgaySinhFormat;
                     ImageSourceAvatar = string.IsNullOrEmpty(UserInfoSetting.UserInfos.AnhDaiDien) ? null : await downloadService.DownloadFileIntoMemory($"{AppConstant.AppConstant.Endpoint}{AppConstant.AppConstant.APIGetImage}{UserInfoSetting.UserInfos.AnhDaiDien}");
-                    var nhanKhauRes = await iUserService.GetNhanKhau(UserInfoSetting.UserInfos.HoGiaDinhId);
-                    if (nhanKhauRes == null)
+                    var nhanVienRes = await iUserService.GetNhanVien(UserInfoSetting.UserInfos.NhanVienID);
+                    if (nhanVienRes == null)
                     {
-                        UserDialogs.Instance.Alert("Có lỗi khi tải thông tin nhân khẩu");
+                        UserDialogs.Instance.Alert("Có lỗi khi tải thông tin nhân viên");
                         return;
                     }
-                    NhanKhaus.Clear();
-                    foreach (var item in nhanKhauRes)
-                    {
-                        NhanKhaus.Add(item);
-                    }
-                    CalculateHeight();
                 }
             }
             catch (Exception)
@@ -164,39 +151,13 @@ namespace XamMobile.ViewModels
             }
         }
 
-        private void CalculateHeight()
-        {
-            NhanKhauHeight = NhanKhaus.Count * 90;
-        }
-
         public async void OpenUserPopUp(object obj = null)
         {
             var navigationParamters = new NavigationParameters();
             if (obj == null)
-                obj = new NhanKhauEntity();
+                obj = new NhanVienEntity();
             navigationParamters.Add("obj", obj);
             await NavigationService.NavigateAsync("UserPopupPage", navigationParamters);
-        }
-
-        public async void ConfirmDelete(object obj = null)
-        {
-            if (obj == null)
-                return;
-
-            var con = await UserDialogs.Instance.ConfirmAsync("Xác nhận muốn xóa bản ghi");
-            if (con)
-            {
-                var model = (obj as NhanKhauEntity);
-                var deleted = await iUserService.DeleteNhanKhau(model);
-                if (deleted)
-                {
-                    var itemDeleted = NhanKhaus.FirstOrDefault(x => x.NhanKhauId == model.NhanKhauId);
-                    NhanKhaus.Remove(itemDeleted);
-                    CalculateHeight();
-                    UserDialogs.Instance.Toast("Xóa thành công", TimeSpan.FromSeconds(2));
-                }
-            }
-
         }
     }
 }

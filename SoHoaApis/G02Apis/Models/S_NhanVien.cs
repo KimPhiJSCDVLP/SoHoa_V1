@@ -18,8 +18,14 @@ namespace G02Apis.Models
         public string TenNhanVien { get; set; }
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string Email { get; set; }
-        public string CMND { get; set; }
+        public string SoCMT { get; set; }
         public Nullable<int> UserID { get; set; }
+        public Nullable<bool> GioiTinh { get; set; }
+        public Nullable<System.DateTime> NgayCap { get; set; }
+        public string NoiCap { get; set; }
+        public string SoDienThoai { get; set; }
+        public string AnhDaiDien { get; set; }
+        public string NguyenQuan { get; set; }
     
         public virtual S_Users S_Users { get; set; }
     }

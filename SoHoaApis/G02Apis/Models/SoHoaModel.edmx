@@ -51,6 +51,18 @@
           <Property Name="Status" Type="tinyint" />
           <Property Name="ServerPath" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="FileUploads">
+          <Key>
+            <PropertyRef Name="FileUploadId" />
+          </Key>
+          <Property Name="FileUploadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="500" />
+          <Property Name="FileSize" Type="nvarchar" MaxLength="500" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="500" />
+          <Property Name="FileKey" Type="nvarchar" MaxLength="500" />
+          <Property Name="FileDescription" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="Huyen">
           <Key>
             <PropertyRef Name="HuyenID" />
@@ -261,11 +273,17 @@
             <PropertyRef Name="NhanVienID" />
           </Key>
           <Property Name="NhanVienID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenNhanVien" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenNhanVien" Type="nvarchar" MaxLength="150" />
           <Property Name="NgaySinh" Type="date" />
-          <Property Name="Email" Type="nchar" MaxLength="50" />
-          <Property Name="CMND" Type="char" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="SoCMT" Type="varchar" MaxLength="12" />
           <Property Name="UserID" Type="int" />
+          <Property Name="GioiTinh" Type="bit" />
+          <Property Name="NgayCap" Type="date" />
+          <Property Name="NoiCap" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="12" />
+          <Property Name="AnhDaiDien" Type="nvarchar" MaxLength="50" />
+          <Property Name="NguyenQuan" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="S_Page">
           <Key>
@@ -737,6 +755,7 @@
           <EntitySet Name="CommonStatus" EntityType="Self.CommonStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiaChi" EntityType="Self.DiaChi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DigitalSignatures" EntityType="Self.DigitalSignatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileUploads" EntityType="Self.FileUploads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Huyen" EntityType="Self.Huyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NgonNgu" EntityType="Self.NgonNgu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhatKy" EntityType="Self.NhatKy" Schema="dbo" store:Type="Tables" />
@@ -1139,18 +1158,6 @@
           <NavigationProperty Name="S_HopSo" Relationship="Self.FK_S_HopSo_S_MucLucHoSo" FromRole="S_MucLucHoSo" ToRole="S_HopSo" />
           <NavigationProperty Name="S_LuuTru" Relationship="Self.FK_S_MucLucHoSo_S_LuuTru" FromRole="S_MucLucHoSo" ToRole="S_LuuTru" />
         </EntityType>
-        <EntityType Name="S_NhanVien">
-          <Key>
-            <PropertyRef Name="NhanVienID" />
-          </Key>
-          <Property Name="NhanVienID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenNhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="CMND" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="UserID" Type="Int32" />
-          <NavigationProperty Name="S_Users" Relationship="Self.FK_S_NhanVien_S_Users" FromRole="S_NhanVien" ToRole="S_Users" />
-        </EntityType>
         <EntityType Name="S_Page">
           <Key>
             <PropertyRef Name="PageID" />
@@ -1254,9 +1261,9 @@
           <Property Name="status" Type="Int16" />
           <Property Name="isDeleted" Type="Int16" />
           <Property Name="PasswordSalt" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="S_NhanVien" Relationship="Self.FK_S_NhanVien_S_Users" FromRole="S_Users" ToRole="S_NhanVien" />
           <NavigationProperty Name="S_Uers_Atuthority" Relationship="Self.FK_S_Role_Uers_Atuthority__S_Users" FromRole="S_Users" ToRole="S_Uers_Atuthority" />
           <NavigationProperty Name="S_User_Role" Relationship="Self.FK_S_User_Role_S_Users" FromRole="S_Users" ToRole="S_User_Role" />
+          <NavigationProperty Name="S_NhanVien" Relationship="SoHoaModel.FK_S_NhanVien_S_Users" FromRole="S_Users" ToRole="S_NhanVien" />
         </EntityType>
         <EntityType Name="S_VanBan">
           <Key>
@@ -1534,18 +1541,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_S_NhanVien_S_Users">
-          <End Role="S_Users" Type="Self.S_Users" Multiplicity="0..1" />
-          <End Role="S_NhanVien" Type="Self.S_NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="S_Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="S_NhanVien">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_S_Page_S_Role_Uers_Atuthority_">
           <End Role="S_Uers_Atuthority" Type="Self.S_Uers_Atuthority" Multiplicity="0..1" />
           <End Role="S_Page" Type="Self.S_Page" Multiplicity="*" />
@@ -1638,7 +1633,6 @@
           <EntitySet Name="S_Menu" EntityType="Self.S_Menu" />
           <EntitySet Name="S_MucDoTinCay" EntityType="Self.S_MucDoTinCay" />
           <EntitySet Name="S_MucLucHoSo" EntityType="Self.S_MucLucHoSo" />
-          <EntitySet Name="S_NhanVien" EntityType="Self.S_NhanVien" />
           <EntitySet Name="S_Page" EntityType="Self.S_Page" />
           <EntitySet Name="S_Phong" EntityType="Self.S_Phong" />
           <EntitySet Name="S_Role" EntityType="Self.S_Role" />
@@ -1722,10 +1716,6 @@
             <End Role="S_MucDoTinCay" EntitySet="S_MucDoTinCay" />
             <End Role="S_VanBan" EntitySet="S_VanBan" />
           </AssociationSet>
-          <AssociationSet Name="FK_S_NhanVien_S_Users" Association="Self.FK_S_NhanVien_S_Users">
-            <End Role="S_Users" EntitySet="S_Users" />
-            <End Role="S_NhanVien" EntitySet="S_NhanVien" />
-          </AssociationSet>
           <AssociationSet Name="FK_S_Page_S_Role_Uers_Atuthority_" Association="Self.FK_S_Page_S_Role_Uers_Atuthority_">
             <End Role="S_Uers_Atuthority" EntitySet="S_Uers_Atuthority" />
             <End Role="S_Page" EntitySet="S_Page" />
@@ -1756,6 +1746,12 @@
             <End Role="S_VanBan" EntitySet="S_VanBan" />
             <End Role="NhatKy" EntitySet="NhatKies" />
           </AssociationSet>
+          <EntitySet Name="S_NhanVien" EntityType="SoHoaModel.S_NhanVien" />
+          <AssociationSet Name="FK_S_NhanVien_S_Users" Association="SoHoaModel.FK_S_NhanVien_S_Users">
+            <End Role="S_Users" EntitySet="S_Users" />
+            <End Role="S_NhanVien" EntitySet="S_NhanVien" />
+          </AssociationSet>
+          <EntitySet Name="FileUploads" EntityType="SoHoaModel.FileUpload" />
         </EntityContainer>
         <EntityType Name="NhatKy">
           <Key>
@@ -1793,6 +1789,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="S_NhanVien">
+          <Key>
+            <PropertyRef Name="NhanVienID" />
+          </Key>
+          <Property Name="NhanVienID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNhanVien" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SoCMT" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <Property Name="NgayCap" Type="DateTime" Precision="0" />
+          <Property Name="NoiCap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="AnhDaiDien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NguyenQuan" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="S_Users" Relationship="SoHoaModel.FK_S_NhanVien_S_Users" FromRole="S_NhanVien" ToRole="S_Users" />
+        </EntityType>
+        <Association Name="FK_S_NhanVien_S_Users">
+          <End Type="SoHoaModel.S_Users" Role="S_Users" Multiplicity="0..1" />
+          <End Type="SoHoaModel.S_NhanVien" Role="S_NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_NhanVien">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FileUpload">
+          <Key>
+            <PropertyRef Name="FileUploadId" />
+          </Key>
+          <Property Name="FileUploadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileSize" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileKey" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2056,18 +2094,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="S_NhanVien">
-            <EntityTypeMapping TypeName="SoHoaModel.S_NhanVien">
-              <MappingFragment StoreEntitySet="S_NhanVien">
-                <ScalarProperty Name="NhanVienID" ColumnName="NhanVienID" />
-                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="S_Page">
             <EntityTypeMapping TypeName="SoHoaModel.S_Page">
               <MappingFragment StoreEntitySet="S_Page">
@@ -2244,6 +2270,37 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_NhanVien">
+            <EntityTypeMapping TypeName="SoHoaModel.S_NhanVien">
+              <MappingFragment StoreEntitySet="S_NhanVien">
+                <ScalarProperty Name="NguyenQuan" ColumnName="NguyenQuan" />
+                <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="NoiCap" ColumnName="NoiCap" />
+                <ScalarProperty Name="NgayCap" ColumnName="NgayCap" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SoCMT" ColumnName="SoCMT" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="NhanVienID" ColumnName="NhanVienID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileUploads">
+            <EntityTypeMapping TypeName="SoHoaModel.FileUpload">
+              <MappingFragment StoreEntitySet="FileUploads">
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+                <ScalarProperty Name="FileKey" ColumnName="FileKey" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileUploadId" ColumnName="FileUploadId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

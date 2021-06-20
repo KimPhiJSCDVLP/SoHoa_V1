@@ -67,7 +67,7 @@ namespace DocumentManagement.Models.Entity.Document
         /// <summary>
         /// Mức độ tin cậy
         /// </summary>
-        public int ConfidenceLevel { get; set; }
+        public string ConfidenceLevel { get; set; }
         /// <summary>
         /// Bút tích
         /// </summary>
@@ -86,5 +86,7 @@ namespace DocumentManagement.Models.Entity.Document
         public string MucDoTinCay { get; set; }
 
         public int Confirmed { get; set; }
+
+        public int Signature { get; set; }
     }
 }

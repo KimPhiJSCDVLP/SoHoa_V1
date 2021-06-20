@@ -28,7 +28,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="20"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Thông tin hộ gia đình" TextColor="{StaticResource MainColor}" FontSize="20" HorizontalOptions="Center"></Label>
+                    <Label Grid.Column="0" Text="Thông tin nhân viên" TextColor="{StaticResource MainColor}" FontSize="20" HorizontalOptions="Center"></Label>
                     <StackLayout Grid.Column="1">
                         <Button
                     BackgroundColor="Transparent"
@@ -44,7 +44,7 @@
                     <StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Padding="10">
                             <Label Text="Họ Tên"></Label>
-                            <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.HoTen}" Placeholder="Họ tên" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
+                            <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.TenNhanVien}" Placeholder="Họ tên" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
                             <!--<customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.NgaySinhStr}" Placeholder="Ngày sinh" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>-->
                             <StackLayout Orientation="Horizontal">
                                 <Label VerticalOptions="Center" Text="Ngày sinh"></Label>
@@ -54,8 +54,14 @@
                             <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.GioiTinhStr}" Placeholder="Giới tính" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
                             <Label Text="Số CMT"></Label>
                             <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.SoCMT}" Placeholder="Số CMT" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
-                            <Label Text="Quan Hệ với chủ hộ"></Label>
-                            <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.QuanHeVoiChuHo}" Placeholder="Quan Hệ với chủ hộ" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
+                            <StackLayout Orientation="Horizontal">
+                                <Label VerticalOptions="Center" Text="Ngày cấp"></Label>
+                                <DatePicker HorizontalOptions="EndAndExpand" Date="{Binding CurrentData.NgayCap}"></DatePicker>
+                            </StackLayout>
+                            <Label Text="Nơi cấp"></Label>
+                            <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.NoiCap}" Placeholder="Nơi cấp" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
+                            <Label Text="Quê quán"></Label>
+                            <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.NguyenQuan}" Placeholder="Quê quán" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
                             <Label Text="Số điện thoại"></Label>
                             <customcontrols:CustomEntry TextColor="Gray" Text="{Binding CurrentData.SoDienThoai}" Placeholder="Số điện thoại" HorizontalOptions="FillAndExpand"  PlaceholderColor="Silver" ></customcontrols:CustomEntry>
                             <Label Text="Email"></Label>
@@ -66,7 +72,7 @@
                     </StackLayout>
                 </ScrollView>
                 <StackLayout AbsoluteLayout.LayoutBounds=".5,1,.5,.1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Orientation="Horizontal">
-                    <Button BackgroundColor="WhiteSmoke" TextColor="{StaticResource MainColor}" Clicked="OnPopupClose" HorizontalOptions="EndAndExpand" Command="{Binding SaveNhanKhauCommand}" Text="Lưu"></Button>
+                    <Button BackgroundColor="WhiteSmoke" TextColor="{StaticResource MainColor}" Clicked="OnPopupClose" HorizontalOptions="EndAndExpand" Command="{Binding SaveNhanVienCommand}" Text="Lưu"></Button>
                     <Button BackgroundColor="WhiteSmoke" HorizontalOptions="End" Clicked="OnPopupClose" Text="Hủy"></Button>
                 </StackLayout>
             </StackLayout>

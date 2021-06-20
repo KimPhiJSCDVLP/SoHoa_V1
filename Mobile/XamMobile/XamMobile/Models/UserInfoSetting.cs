@@ -7,6 +7,6 @@ namespace XamMobile.Models
 {
     public static class UserInfoSetting
     {
-        public static UserInfo UserInfos = new UserInfo();
+        public static NhanVienEntity UserInfos = new NhanVienEntity();
     }
 }

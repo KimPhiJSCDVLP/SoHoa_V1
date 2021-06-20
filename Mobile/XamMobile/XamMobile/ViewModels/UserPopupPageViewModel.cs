@@ -16,11 +16,11 @@ namespace XamMobile.ViewModels
     public class UserPopupPageViewModel:ViewModelBase
     {
         public DelegateCommand ClosePopupCommand { get; private set; }
-        public DelegateCommand SaveNhanKhauCommand { get; private set; }
-        private NhanKhauEntity _currentData;
+        public DelegateCommand SaveNhanVienCommand { get; private set; }
+        private NhanVienEntity _currentData;
 
         IUserService iUserService;
-        public NhanKhauEntity CurrentData
+        public NhanVienEntity CurrentData
         {
             get { return _currentData; }
             set { SetProperty(ref _currentData, value); }
@@ -28,26 +28,30 @@ namespace XamMobile.ViewModels
         public UserPopupPageViewModel(INavigationService navigationService, IUserService iUserService) : base(navigationService)
         {
             this.iUserService = iUserService;
-            SaveNhanKhauCommand = new DelegateCommand(async() => { await SaveNhanKhau(); });
+            SaveNhanVienCommand = new DelegateCommand(async() => { await SaveNhanVien(); });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            CurrentData = parameters.GetValue<NhanKhauEntity>("obj");
+            CurrentData = parameters.GetValue<NhanVienEntity>("obj");
             base.OnNavigatedTo(parameters);
         }
 
-        public async Task SaveNhanKhau()
+        public async Task SaveNhanVien()
         {
-            if(CurrentData.NhanKhauId == 0)
+            if (CurrentData.NhanVienID == 0)
             {
-                if (!CurrentData.HoGiaDinhId.HasValue || CurrentData.HoGiaDinhId == 0)
-                    CurrentData.HoGiaDinhId = UserInfoSetting.UserInfos.HoGiaDinhId;
+                if (!CurrentData.UserID.HasValue || CurrentData.UserID == 0)
+                    CurrentData.UserID = UserInfoSetting.UserInfos.UserID;
                 if (CurrentData.NgaySinh == null)
                     CurrentData.NgaySinh = DateTime.Now;
             }
-            var res = await iUserService.SaveNhanKhau(CurrentData);
-            MessagingCenter.Send((App)Application.Current, "UpdateNhanKhau", res);
+            if ("Nam".Equals(CurrentData.GioiTinhStr))
+                CurrentData.GioiTinh = true;
+            else
+                CurrentData.GioiTinh = false;
+            var res = await iUserService.SaveNhanVien(CurrentData);
+            MessagingCenter.Send((App)Application.Current, "UpdateNhanVien", res);
             UserDialogs.Instance.Toast("Saved");
         }
     }

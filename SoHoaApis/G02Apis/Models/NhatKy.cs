@@ -22,7 +22,7 @@ namespace G02Apis.Models
         public Nullable<int> VanBanId { get; set; }
         public string Action { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
+    
         public virtual S_VanBan S_VanBan { get; set; }
     }
-
 }

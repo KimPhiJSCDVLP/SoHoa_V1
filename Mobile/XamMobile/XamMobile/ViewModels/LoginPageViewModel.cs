@@ -3,8 +3,10 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
+using XamMobile.EntityModels;
 using XamMobile.Models;
 using XamMobile.Services;
 using XamMobile.Views;
@@ -47,16 +49,30 @@ namespace XamMobile.ViewModels
                 var res = await iUserService.Login(UserName, Password);
                 if (res.IsSuccess)
                 {
-                    //var userInfoResponse = await iUserService.GetUserInfo();
-                    //if (userInfoResponse != null)
-                    //{
-                    //    UserInfoSetting.UserInfos = userInfoResponse;
-                    //}
-                    //else
-                    //{
-                    //    UserDialogs.Instance.Alert("Có lỗi xảy ra khi lấy thông tin người dùng");
-                    //    return;
-                    //}
+                    var userInfoResponses = await iUserService.GetUsers();
+                    var dsNhanVien = await iUserService.GetNhanViens();
+                    var userInfo = userInfoResponses.FirstOrDefault(x => x.UserName == UserName);
+                    var nhanVienEntity = new NhanVienEntity()
+                    {
+                        UserID = userInfo.UserID
+                    };
+                    if (dsNhanVien != null)
+                    {
+                        nhanVienEntity = dsNhanVien.FirstOrDefault(x => x.UserID == userInfo.UserID);
+                    }
+                    else
+                    {
+
+                    }
+                    if (nhanVienEntity != null)
+                    {
+                        UserInfoSetting.UserInfos = nhanVienEntity;
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Alert("Có lỗi xảy ra khi lấy thông tin người dùng");
+                        return;
+                    }
 
                     await NavigationService.NavigateAsync(nameof(MenuPage) + "/" + nameof(NavigationPage) + "/" + nameof(HomeMenuPage));
                 }

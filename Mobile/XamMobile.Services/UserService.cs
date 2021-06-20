@@ -9,11 +9,11 @@ namespace XamMobile.Services
 {
     public class UserService : BaseService, IUserService
     {
-        public async Task<List<NhanKhauEntity>> GetNhanKhau(int hoGiaDinhId)
+        public async Task<List<NhanVienEntity>> GetNhanVien(int nhanVienId)
         {
             try
             {
-                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<NhanKhauEntity>>>($"{AppConstant.AppConstant.APINhanKhau}?$filter=HoGiaDinhId eq {hoGiaDinhId}");
+                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<NhanVienEntity>>>($"{AppConstant.AppConstant.APINhanVien}?$filter=NhanVienID eq {nhanVienId}");
                 if (userResponse.Message.Code == ResponseCode.SUCCESS)
                 {
                     return userResponse.Result.Results;
@@ -25,20 +25,6 @@ namespace XamMobile.Services
                 return null;
             }
         }
-
-        public async Task<UserInfo> GetUserInfo()
-        {
-            try
-            {
-                var userResponse = await GetRequestAsync<UserInfo>(AppConstant.AppConstant.APIUserInfo);
-                return userResponse;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
         public async Task<UserEntity> GetUserById(int userId)
         {
             try
@@ -94,11 +80,11 @@ namespace XamMobile.Services
             return result;
         }
 
-        public async Task<NhanKhauEntity> SaveNhanKhau(NhanKhauEntity model)
+        public async Task<NhanVienEntity> SaveNhanVien(NhanVienEntity model)
         {
             try
             {
-                var result = await PostRequestWithHandleErrorAsync<NhanKhauEntity, NhanKhauEntity>(AppConstant.AppConstant.APIInsertOrUpdateNhanKhau, model);
+                var result = await PostRequestWithHandleErrorAsync<NhanVienEntity, NhanVienEntity>(AppConstant.AppConstant.APIInsertOrUpdateNhanVien, model);
                 if (result.Message.IsSuccess)
                 {
                     return result.Result;
@@ -114,11 +100,11 @@ namespace XamMobile.Services
             }
         }
 
-        public async Task<bool> DeleteNhanKhau(NhanKhauEntity model)
+        public async Task<bool> DeleteNhanVien(NhanVienEntity model)
         {
             try
             {
-                var result = await PostRequestWithHandleErrorAsync<NhanKhauEntity, NhanKhauEntity>(AppConstant.AppConstant.APIDeleteNhanKhau, model);
+                var result = await PostRequestWithHandleErrorAsync<NhanVienEntity, NhanVienEntity>(AppConstant.AppConstant.APIDeleteNhanVien, model);
                 return result.Message.IsSuccess;
             }
             catch (Exception)
@@ -127,16 +113,33 @@ namespace XamMobile.Services
             }
         }
 
-        public async Task<bool> UpdateHGDAvatar(int hoGiaDinhId, string imageName)
+        public async Task<bool> UpdateNVAvatar(int nhanVienId, string imageName)
         {
             try
             {
-                var res = await GetRequestAsync<string>($"{AppConstant.AppConstant.APIUpdateHoGiaDinhAvatar}?hoGiaDinhId={hoGiaDinhId}&imageName={imageName}");
+                var res = await GetRequestAsync<string>($"{AppConstant.AppConstant.APIUpdateNhanVienAvatar}?nhanVienId={nhanVienId}&imageName={imageName}");
                 return !string.IsNullOrEmpty(res);
             }
             catch(Exception ex)
             {
                 return false;
+            }
+        }
+
+        public async Task<List<NhanVienEntity>> GetNhanViens()
+        {
+            try
+            {
+                var userResponse = await GetRequestWithHandleErrorAsync<OdataResult<List<NhanVienEntity>>>($"{AppConstant.AppConstant.APINhanVien}");
+                if (userResponse.Message.Code == ResponseCode.SUCCESS)
+                {
+                    return userResponse.Result.Results;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

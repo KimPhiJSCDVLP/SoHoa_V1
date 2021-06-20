@@ -88,7 +88,7 @@ namespace XamMobile.EntityModels
         {
             get
             {
-                return $"Thời gian bắt đầu: {ThoiGianBatDau?.ToString("dd - MMM - yyyy")}";
+                return $"Thời gian bắt đầu: {ThoiGianBatDau?.ToString("dd/MM/yyyy")}";
             }
         }
 
@@ -96,7 +96,7 @@ namespace XamMobile.EntityModels
         {
             get
             {
-                return $"Thời gian kết thúc: {ThoiGianKetThuc?.ToString("dd - MMM - yyyy")}";
+                return $"Thời gian kết thúc: {ThoiGianKetThuc?.ToString("dd/MM/yyyy")}";
             }
         }
 

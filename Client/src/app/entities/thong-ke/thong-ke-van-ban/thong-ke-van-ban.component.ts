@@ -52,7 +52,7 @@ export class ThongKeVanBanComponent implements OnInit {
       condi.FilterRuleList = this.condition.FilterRuleList;
     }
     condi.PageIndex = page;
-    this.service.GetDataExportDocument(condi).subscribe((data : any) => {
+    this.taiLieuService.getAllTaiLieuWithPaging(condi).subscribe((data : any) => {
       this.vanBans = data.itemList;
       this.page = page;
       this.totalRecords = data.totalRows;
@@ -70,7 +70,7 @@ export class ThongKeVanBanComponent implements OnInit {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "S_VanBan.NgayTao",
+        field: "vb.NgayTao",
         op: "",
         value: ""
       }
@@ -82,7 +82,7 @@ export class ThongKeVanBanComponent implements OnInit {
     }
     if (this.fromDate != undefined && this.toDate != undefined) {
       this.showSpinner("dataTable", "ball-spin-clockwise", "0.2");
-      this.service.GetDataExportDocument(this.condition).subscribe((data : any) => {
+      this.taiLieuService.getAllTaiLieuWithPaging(this.condition).subscribe((data : any) => {
         this.vanBans = data.itemList;
         this.pageSize = 5;
         this.page = 1;

@@ -47,13 +47,5 @@ namespace XamMobile.Views.MasterDetail
         //    Popup.SetBinding(PopupMenu.ItemsSourceProperty, "ActionDatasource");
         //    Popup?.ShowPopup(sender as View);
         //}
-
-        void CaseUploadFileClicked(string val, object obj)
-        {
-            if (val == "Xuất phiếu thu")
-            {
-                this.viewModel.ExortInvoice(obj);
-            }
-        }
     }
 }

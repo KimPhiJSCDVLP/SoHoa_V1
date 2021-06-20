@@ -10,12 +10,12 @@ namespace XamMobile.Services
     public interface IUserService
     {
         Task<MessageResponse> Login(string userName, string passWord);
-        Task<bool> UpdateHGDAvatar(int hoGiaDinhId, string imageName);
-        Task<UserInfo> GetUserInfo();
-        Task<List<NhanKhauEntity>> GetNhanKhau(int hoGiaDinhId);
-        Task<NhanKhauEntity> SaveNhanKhau(NhanKhauEntity model);
-        Task<bool> DeleteNhanKhau(NhanKhauEntity model);
+        Task<bool> UpdateNVAvatar(int nhanVienId, string imageName);
+        Task<List<NhanVienEntity>> GetNhanVien(int userId);
+        Task<NhanVienEntity> SaveNhanVien(NhanVienEntity model);
+        Task<bool> DeleteNhanVien(NhanVienEntity model);
         Task<UserEntity> GetUserById(int useId);
         Task<List<UserEntity>> GetUsers();
+        Task<List<NhanVienEntity>> GetNhanViens();
     }
 }

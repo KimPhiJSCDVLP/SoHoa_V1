@@ -50,7 +50,6 @@ namespace XamMobile.ViewModels
             this.userService = userService;
             this.logService = logService;
             Logs = new ObservableCollection<LogEntity>();
-            //ActionDatasource = new ObservableCollection<string>(new List<string>() { "Xuất phiếu thu" });
             _permissionService = Xamarin.Forms.DependencyService.Get<DependencyServices.IPermissionService>();
             _fileService = Xamarin.Forms.DependencyService.Get<DependencyServices.IFileService>();
             downloadService = new DownloadService(_permissionService, _fileService);
@@ -81,7 +80,7 @@ namespace XamMobile.ViewModels
                 }
                 if (logEntities == null)
                 {
-                    UserDialogs.Instance.Alert("Có lỗi khi tải thông tin phiếu thu");
+                    UserDialogs.Instance.Alert("Có lỗi khi tải thông tin nhật ký");
                     return;
                 }
                 Logs.Clear();
@@ -91,15 +90,6 @@ namespace XamMobile.ViewModels
                 }
                 CalculateHeight();
             }
-        }
-
-        public async void ExortInvoice(object obj = null)
-        {
-            var invoice = obj as PhieuThuEntity;
-            var isEnable = await PermisionChecking.CheckPermissions(Permission.Storage);
-            if (!isEnable)
-                return;
-            await downloadService.DownloadFile($"{AppConstant.AppConstant.Endpoint}{AppConstant.AppConstant.APIPhieuThuExport}?Thang={invoice.Thang}&Nam={invoice.Nam}&PhongID={invoice.PhongId}&ExID={new Random().Next(1, 2000000)}", "CareDownload", null, $"phieuthu-{invoice.Thang}-{invoice.Nam}.xlsx", true, true, ActionFileDownload.Download, null, true).ConfigureAwait(false);
         }
     }
 }

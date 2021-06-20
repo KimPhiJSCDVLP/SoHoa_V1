@@ -265,10 +265,10 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
                   this.issuedDate = document.issuedDate.toString().split('T')[0];
                   var url = ApiUrl.endpoint + result.item.clientUrl;
                   this.pdfSrc = url;
-                  if (this.document != undefined &&
-                    this.document.signature == 1 && 
-                    this.document.documentId != undefined &&
-                    this.document.documentId != null)
+                  if (this.document !== undefined &&
+                    this.document.signature === 1 && 
+                    this.document.documentId !== undefined &&
+                    this.document.documentId !== null)
                   {
                     this.checked = true;
                     this.IdSecure = true;

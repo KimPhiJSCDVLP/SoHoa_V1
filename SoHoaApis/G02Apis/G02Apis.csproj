@@ -194,9 +194,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\FileUploadsController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NhatKiesController.cs" />
     <Compile Include="Controllers\S_HoSoController.cs" />
+    <Compile Include="Controllers\S_NhanVienController.cs" />
     <Compile Include="Controllers\S_UsersController.cs" />
     <Compile Include="Controllers\S_VanBanController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +216,9 @@
       <DependentUpon>SoHoaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DigitalSignature.cs">
+      <DependentUpon>SoHoaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileUpload.cs">
       <DependentUpon>SoHoaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Huyen.cs">
@@ -352,7 +359,7 @@
     <Folder Include="APIs\" />
     <Folder Include="App_Data\" />
     <Folder Include="Commons\" />
-    <Folder Include="FileUpload\" />
+    <Folder Include="Views\FileUploads\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

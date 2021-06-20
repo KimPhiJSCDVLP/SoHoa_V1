@@ -16,6 +16,7 @@ namespace DocumentManagement.Models.DTO
         public int Confirmed { get; set; }
         public string TypeName { get; set; }
         public string ConfidenceLevel { get; set; }
+        public int Signature { get; set; }
         public string Format { get; set; }
         public DateTime CreateTime { get; set; }
     }

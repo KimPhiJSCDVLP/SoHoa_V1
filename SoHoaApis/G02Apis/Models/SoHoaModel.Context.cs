@@ -44,7 +44,6 @@ namespace G02Apis.Models
         public virtual DbSet<S_Menu> S_Menu { get; set; }
         public virtual DbSet<S_MucDoTinCay> S_MucDoTinCay { get; set; }
         public virtual DbSet<S_MucLucHoSo> S_MucLucHoSo { get; set; }
-        public virtual DbSet<S_NhanVien> S_NhanVien { get; set; }
         public virtual DbSet<S_Page> S_Page { get; set; }
         public virtual DbSet<S_Phong> S_Phong { get; set; }
         public virtual DbSet<S_Role> S_Role { get; set; }
@@ -58,5 +57,7 @@ namespace G02Apis.Models
         public virtual DbSet<XaPhuong> XaPhuongs { get; set; }
         public virtual DbSet<NhatKy> NhatKies { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<S_NhanVien> S_NhanVien { get; set; }
+        public virtual DbSet<FileUpload> FileUploads { get; set; }
     }
 }
