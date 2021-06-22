@@ -4,6 +4,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 using XamMobile.DependencyServices;
@@ -84,6 +85,7 @@ namespace XamMobile.ViewModels
                     return;
                 }
                 Logs.Clear();
+                logEntities = logEntities.OrderByDescending(x => x.CreatedDate).ToList();
                 foreach (var item in logEntities)
                 {
                     Logs.Add(item);

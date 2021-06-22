@@ -19,12 +19,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-1 col-form-label" for="organ-type">Chọn phông: </label>
+                        <label class="col-md-1 col-form-label" for="organ-type">Chọn phông lưu trữ: </label>
                         <div class="col-md-3">
                             <ng-select2
                             formControlName="fontID"
                             [data]="fontList"
-                            [placeholder]="'Chọn phông...'"
+                            [placeholder]="'Chọn phông lưu trữ...'"
                             [options]="options"
                             name="fontID"
                             [(ngModel)]="validImport.fontID"
