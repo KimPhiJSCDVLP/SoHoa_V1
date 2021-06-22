@@ -44,7 +44,7 @@ const routes: Routes = [
     //       {
     //         path: 'thongKeVanBan',
     //         data: {
-    //             title: "Thống kê văn bản"
+    //             title: "Thống kê tài liệu"
     //         },
     //         component: ThongKeVanBanComponent
     //       },

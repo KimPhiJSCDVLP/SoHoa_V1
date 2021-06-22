@@ -18,6 +18,7 @@ namespace DocumentManagement.Models.DTO
         public string ConfidenceLevel { get; set; }
         public int Signature { get; set; }
         public string Format { get; set; }
+        public string IsAccept { get; set; }
         public DateTime CreateTime { get; set; }
     }
 }

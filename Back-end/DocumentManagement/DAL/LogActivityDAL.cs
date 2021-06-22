@@ -57,7 +57,7 @@ namespace DocumentManagement.DAL
 
                 if (list.Count > 0)
                 {
-                    result.ItemList = list;
+                    result.ItemList = list.OrderByDescending(x => x.VanBanID).ToList();
                 }
                 provider.GetOutValue("ErrorCode", out outCode)
                            .GetOutValue("ErrorMessage", out outMessage)

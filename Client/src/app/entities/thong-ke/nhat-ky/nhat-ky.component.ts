@@ -124,14 +124,14 @@ export class NhatKyComponent implements OnInit {
 
     this.documentService.getAllDocument()
       .subscribe((result) => {
-        var documentCodeList = [];
+        var documentList = [];
         for (const item of result.itemList) {
           
           var temp = { id: item.documentCode, text: item.documentCode };
-          documentCodeList.push(temp);
+          documentList.push(temp);
         }
         
-        this.documentCodeList = documentCodeList;
+        this.documentCodeList = documentList;
       },
       (error) => {
         setTimeout(() => {
@@ -153,28 +153,29 @@ export class NhatKyComponent implements OnInit {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "Document_Log.UserName",
+        field: "vb.NguoiTao",
         op: "",
         value: ""
       },
       {
-        field: "S_VanBan.MaDinhDanh",
+        field: "vb.MaDinhDanh",
         op: "",
         value: ""
       },
       {
-        field: "Document_Log.NgayTao",
+        field: "vb.NgayTao",
         op: "",
         value: ""
       },
       {
-        field: "Document_Log.NgayCapNhat",
+        field: "vb.NgayCapNhat",
         op: "",
         value: ""
       },
       
     ]
     this.userNameArr = userNameArr;
+    this.documentCodeArr = documentCodeArr;
     if (this.userNameArr != undefined) {
       this.condition.FilterRuleList[0].value = userNameArr.toString();
       if (userNameArr.length == 1) {
@@ -184,7 +185,6 @@ export class NhatKyComponent implements OnInit {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
-    this.documentCodeArr = documentCodeArr;
     if (this.documentCodeArr != undefined) {
       this.condition.FilterRuleList[1].value = documentCodeArr.toString();
       if (documentCodeArr.length == 1) {
@@ -195,7 +195,6 @@ export class NhatKyComponent implements OnInit {
       }
     }
 
-    console.log(endDate);
     if (fromDate != undefined && endDate !=undefined) {
       this.condition.FilterRuleList[2].value = this.fromDate.toString() + "/" + this.endDate.toString();
       this.condition.FilterRuleList[2].op = "and_date_between_custom";

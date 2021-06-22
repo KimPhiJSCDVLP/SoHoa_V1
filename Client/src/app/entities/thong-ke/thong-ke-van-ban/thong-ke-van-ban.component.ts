@@ -52,7 +52,7 @@ export class ThongKeVanBanComponent implements OnInit {
       condi.FilterRuleList = this.condition.FilterRuleList;
     }
     condi.PageIndex = page;
-    this.taiLieuService.getAllTaiLieuWithPaging(condi).subscribe((data : any) => {
+    this.service.GetDataExportDocument(condi).subscribe((data : any) => {
       this.vanBans = data.itemList;
       this.page = page;
       this.totalRecords = data.totalRows;
@@ -82,7 +82,7 @@ export class ThongKeVanBanComponent implements OnInit {
     }
     if (this.fromDate != undefined && this.toDate != undefined) {
       this.showSpinner("dataTable", "ball-spin-clockwise", "0.2");
-      this.taiLieuService.getAllTaiLieuWithPaging(this.condition).subscribe((data : any) => {
+      this.service.GetDataExportDocument(this.condition).subscribe((data : any) => {
         this.vanBans = data.itemList;
         this.pageSize = 5;
         this.page = 1;
@@ -99,7 +99,7 @@ export class ThongKeVanBanComponent implements OnInit {
   }
   loadAll (){
     this.showSpinner("dataTable", "timer", "0.8");
-    this.taiLieuService.getAllTaiLieuWithPaging().subscribe((data : any) => {
+    this.service.GetDataExportDocument().subscribe((data : any) => {
       this.vanBans = data.itemList;
       this.pageSize = 5;
       this.page = 1;

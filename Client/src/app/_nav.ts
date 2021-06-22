@@ -46,13 +46,13 @@ export const navItems: INavData[] = [
         attributes: { style: 'margin-left: 10px;' }
       },
       {
-        name: 'Quản lý văn bản',
+        name: 'Quản lý tài liệu',
         url: '/QuanLyTaiLieu/taiLieu',
         icon: 'fa fa-file-text',
         attributes: { style: 'margin-left: 10px;' }
       },
       {
-        name: 'Quản lý con dấu văn bản',
+        name: 'Quản lý con dấu tài liệu',
         url: '/QuanLyChuKySo/chuKySo',
         icon: 'fa fa-address-book-o',
         attributes: { style: 'margin-left: 10px;' }
@@ -64,7 +64,7 @@ export const navItems: INavData[] = [
         attributes: { style: 'margin-left: 10px;' }
       },
       {
-        name: 'Import dữ liệu văn bản',
+        name: 'Import dữ liệu tài liệu',
         url: '/ImportData/importData',
         icon: 'fa fa-file',
         attributes: { style: 'margin-left: 10px;' }
@@ -85,7 +85,7 @@ export const navItems: INavData[] = [
         attributes: {style: 'color: #20a8d8;margin-left: 10px;'},
         children: [
           {
-            name: 'Loại văn bản',
+            name: 'Loại tài liệu',
             url: '/QuanLyLoaiVanBan/loaiVanBan',
             icon: 'icon-folder-alt',
             attributes: { style: 'margin-left: 25px;' },
@@ -143,7 +143,7 @@ export const navItems: INavData[] = [
         attributes: { style: 'margin-left: 10px;' }
       },
       {
-        name: 'Thống kê văn bản',
+        name: 'Thống kê tài liệu',
         url: '/ThongKe/thongKeVanBan',
         icon: 'fa fa-file-text',
         attributes: { style: 'margin-left: 10px;' }

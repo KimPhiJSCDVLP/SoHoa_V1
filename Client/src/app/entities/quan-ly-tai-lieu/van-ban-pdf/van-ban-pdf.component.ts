@@ -124,7 +124,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       issuedDate: ['', Validators.required],
       pageAmount: [''],
       codeNotation: ['', Validators.required],
-      docOrdinal: ['', Validators.required],
+      docOrdinal: [''],
       language: ['', Validators.required],
       format: ['', Validators.required],
       confidenceLevel: ['', Validators.required],
@@ -703,7 +703,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             }
             else {
               this.loadingSignature = false;
-              this.toastr.info("Vui lòng áp dụng một con dấu văn bản trong mục quản lý con dấu văn bản và thử lại.", "Thông báo");
+              this.toastr.info("Vui lòng áp dụng một con dấu tài liệu trong mục quản lý con dấu tài liệu và thử lại.", "Thông báo");
               this.checked = false;
             }
           }

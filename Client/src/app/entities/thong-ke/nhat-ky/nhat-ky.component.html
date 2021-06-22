@@ -31,7 +31,7 @@
                 [placeholder]="'Chọn mã văn bản...'"
                 [options]="options"
                 [(ngModel)]="documentCodeArr"
-                (valueChanged)="getFilterOptions(types, $event, fromDate, endDate)"
+                (valueChanged)="getFilterOptions(userNameArr, $event, fromDate, endDate)"
             ></ng-select2>
             </div>
             
@@ -61,7 +61,7 @@
             <thead>
               <tr>
                 <th style="width: 3%;">STT </th>
-                <th style="width: 10%;">Mã định danh Văn Bản</th>
+                <th style="width: 10%;">Mã định danh tài liệu</th>
                 <th style="width: 15%;">User</th>
                 <th style="width: 20%;">Thao tác</th>
                 <th style="width: 40%;">Nội dung</th>

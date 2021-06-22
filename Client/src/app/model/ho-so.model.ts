@@ -20,7 +20,7 @@ export class HoSo  {
     public startDate? : Date;
     public endDate? : Date;
     /// <summary>
-    /// tổng số văn bản trong hồ sơ
+    /// tổng số tài liệu trong hồ sơ
     /// </summary>
     public totalDoc? : number;
     public description? : string;

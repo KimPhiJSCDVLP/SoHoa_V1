@@ -1,18 +1,18 @@
 
 export class Document  {
       public documentId?: number
-      // Mã định danh văn bản
+      // Mã định danh tài liệu
       public documentCode?: string
-      /// Số thứ tự văn bản
+      /// Số thứ tự tài liệu
       public docOrdinal?: number
       public docTypeId?: number
-      // Loại văn bản
+      // Loại tài liệu
       public typeName?: string
       // Mã hồ sơ trong db
       public fileId?: number
       // Mã định danh hồ sơ
       public fileCode?: number
-      // Văn bản số
+      // tài liệu số
       public codeNumber?: string
       public organName?:string
       public fontId?: number
@@ -20,9 +20,9 @@ export class Document  {
       public gearBoxId?: number
       public organId?:number
       public computerFileId?: number
-      // Ký hiệu của văn bản
+      // Ký hiệu của tài liệu
       public codeNotation?: string
-      /// Ngày, tháng, năm văn bản
+      /// Ngày, tháng, năm tài liệu
       public issuedDate?: Date
       // Nội dung
       public subject?: string
@@ -50,7 +50,7 @@ export class Document  {
       // Tên tệp lưu trữ
       public computerFileName?:string
       
-      // id file ứng với văn bản
+      // id file ứng với tài liệu
       public languageId?:number
       public confidenceLevelId?: number
       public isDeleted?: string

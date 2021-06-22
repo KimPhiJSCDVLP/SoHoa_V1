@@ -6,13 +6,13 @@ const routes: Routes = [
   {
     path: "",
       data: {
-          title: "Import dữ liệu văn bản"
+          title: "Import dữ liệu tài liệu"
       },
       children: [
           {
               path: 'importData',
               data: {
-                  title: "Import dữ liệu văn bản"
+                  title: "Import dữ liệu tài liệu"
               },
               component: ImportDataComponent
           },

@@ -7,13 +7,13 @@ const routes: Routes = [
   {
     path: "",
       data: {
-          title: "Quản lý Con Dấu Văn Bản"
+          title: "Quản lý Con Dấu TÀI LIỆU"
       },
       children: [
           {
               path: 'chuKySo',
               data: {
-                  title: "Con Dấu Văn Bản"
+                  title: "Con Dấu Tài Liệu"
               },
               component: QuanLyChuKySoComponent
           },

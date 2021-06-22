@@ -7,13 +7,13 @@ const routes: Routes = [
   {
     path: "",
       data: {
-          title: "Quản lý loại văn bản"
+          title: "Quản lý loại tài liệu"
       },
       children: [
           {
               path: 'loaiVanBan',
               data: {
-                  title: "Loại văn bản"
+                  title: "Loại tài liệu"
               },
               component: QuanLyLoaiVanBanComponent
           },

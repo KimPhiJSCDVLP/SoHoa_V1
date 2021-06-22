@@ -79,6 +79,13 @@ namespace DocumentManagement.Controllers.Export
                 exportDocDTOs = null;
             }
             string sWebRootFolder = _hostingEnvironment.ContentRootPath + "\\FilesUpload";
+            exportDocDTOs.ForEach(x =>
+            {
+                if (x.Signature == 1)
+                    x.IsAccept = "Đã duyệt";
+                else
+                    x.IsAccept = "Chưa duyệt";
+            });
             CreateExport(exportDocDTOs, sWebRootFolder);
             string fPath = sWebRootFolder + "\\" + "DanhSachVanBan.xlsx";
             FileInfo fi = new FileInfo(fPath);
@@ -140,6 +147,7 @@ namespace DocumentManagement.Controllers.Export
             lstProperty.Add(new ProperTiesName { PropsName = "PageAmount", WidthSize = 20 });
             lstProperty.Add(new ProperTiesName { PropsName = "ConfidenceLevel", WidthSize = 20 });
             lstProperty.Add(new ProperTiesName { PropsName = "Format", WidthSize = 30 });
+            lstProperty.Add(new ProperTiesName { PropsName = "IsAccept", WidthSize = 30 });
             lstProperty.Add(new ProperTiesName { PropsName = "Description", WidthSize = 30 });
             //Tạo đối tượng dùng để Export
             ExportCore<ExportDocDTO> exh = new ExportCore<ExportDocDTO>(4)
@@ -164,8 +172,8 @@ namespace DocumentManagement.Controllers.Export
                 new HeaderLocation(1,3,20,"Thống kê danh sách văn bản"),
                 new HeaderLocation(2,1,20,"Hồ sơ số"),new HeaderLocation(2,2,20,"Tài liệu số"),new HeaderLocation(2,3,50,"Stt trong hồ sơ"),
                 new HeaderLocation(2,4,20,"Tên loại tài liệu"),new HeaderLocation(2,5,25,"Nội dung"),new HeaderLocation(2,6,30,"Số tờ")
-                ,new HeaderLocation(2,7,30,"Mức độ tin cậy"),new HeaderLocation(2,8,30,"Tình trạng")
-                ,new HeaderLocation(2,9,30,"Ghi chú")
+                ,new HeaderLocation(2,7,30,"Mức độ tin cậy"),new HeaderLocation(2,8,30,"Tình trạng"),new HeaderLocation(2,9,30,"TT duyệt")
+                ,new HeaderLocation(2,10,30,"Ghi chú")
             };
             // tạo danh sách các ô bị merge(từ hàng , từ cột, đến hàng,đến cột)
             List<MergeTo> lstMerge = new List<MergeTo>()

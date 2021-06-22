@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số tài liệu trong hồ sơ:</label>
             <div class="col-md-9">
                 <!-- <label> {{ hoso.totalDoc }} </label> -->
                 <!-- <label> {{ hoso.totalFiles }} </label> -->
@@ -163,7 +163,7 @@
 
     </div>
     <div class="card-footer">
-        <div><h5>Danh sách văn bản có trong hồ sơ số {{ hoso.fileCode }} </h5></div>
+        <div><h5>Danh sách tài liệu có trong hồ sơ số {{ hoso.fileCode }} </h5></div>
         <hr/>
         <div>
             <button class="btn btn-primary btn-sm" style="float:right; margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf/profileId',hoso.profileId]" routerLinkActive="router-link-active">

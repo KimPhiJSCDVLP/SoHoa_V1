@@ -18,5 +18,6 @@ namespace DocumentManagement.Models.DTO
         public DateTime CreateDate { get; set; }
         public string MaDinhDanh { get; set; }
         public int STTVanBan { get; set; }
+        public int VanBanID { get; set; }
     }
 }
